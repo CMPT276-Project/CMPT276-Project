@@ -29,37 +29,36 @@ import Gadgets from '../images/gadgets.png'
 import Anime from '../images/manga-anime.jpeg'
 import Cartoons from '../images/cartoon-animation.jpeg'
 
-function Main() {
+function Main({ sendDataToParent }) {
 
     const category = {
-        generalKnowledge: {image: GeneralKnowledge, id: 9},
-        books: {image: Books, id: 10},
-        film: {image: Film, id: 11},
-        music: {image: Music, id: 12},
-        musicalTheatre: {image: MusicalTheatre, id: 13},
-        television: {image: Television, id: 14},
-        videoGames: {image: VideoGames, id: 15},
-        boardGames: {image: BoardGames, id: 16},
-        scienceNature: {image: ScienceNature, id: 17},
-        computer: {image: Computer, id: 18},
-        math: {image: Mathematics, id: 19},
-        mythology: {image: Mythology, id: 20},
-        sports: {image: Sports, id: 21},
-        geography: {image: Geography, id: 22},
-        history: {image: History, id: 23},
-        politics: {image: Politics, id: 24},
-        art: {image: Art, id: 25},
-        celebrities: {image: Celebrities, id: 26},
-        animals: {image: Animals, id: 27},
-        vehicles: {image: Vehicles, id: 28},
-        comics: {image: Comics, id: 29},
-        gadgets: {image: Gadgets, id: 30},
-        anime: {image: Anime, id: 31},
-        cartoons: {image: Cartoons, id: 32}
+        GeneralKnowledge: {image: GeneralKnowledge, id: 9},
+        Books: {image: Books, id: 10},
+        Film: {image: Film, id: 11},
+        Music: {image: Music, id: 12},
+        MusicalTheatre: {image: MusicalTheatre, id: 13},
+        Television: {image: Television, id: 14},
+        VideoGames: {image: VideoGames, id: 15},
+        BoardGames: {image: BoardGames, id: 16},
+        ScienceNature: {image: ScienceNature, id: 17},
+        Computer: {image: Computer, id: 18},
+        Math: {image: Mathematics, id: 19},
+        Mythology: {image: Mythology, id: 20},
+        Sports: {image: Sports, id: 21},
+        Geography: {image: Geography, id: 22},
+        History: {image: History, id: 23},
+        Politics: {image: Politics, id: 24},
+        Art: {image: Art, id: 25},
+        Celebrities: {image: Celebrities, id: 26},
+        Animals: {image: Animals, id: 27},
+        Vehicles: {image: Vehicles, id: 28},
+        Comics: {image: Comics, id: 29},
+        Gadgets: {image: Gadgets, id: 30},
+        Anime: {image: Anime, id: 31},
+        Cartoons: {image: Cartoons, id: 32}
     }
 
     let [randomCategory, setRandomCategory] = useState([])
-    let [display, setDisplay] = useState(false)
     let numDisplay = 9
 
     function randomizeCategory () {
@@ -71,6 +70,10 @@ function Main() {
             setRandomCategory(prevRandomCategory => [...prevRandomCategory, randomKey])
             keys.splice(randomIndex, 1) 
         }
+    }
+
+    function sendData(data) {
+        sendDataToParent(data)
     }
 
     useEffect(() => {
@@ -91,7 +94,7 @@ function Main() {
                 {randomCategory.map((item, index) => {
                     return (
                         <li className="key-values" key={index}>
-                            <Link className="key-link" to="/difficulty">
+                            <Link className="key-link" to="/difficulty" onClick={() => sendData(category[item].id)}>
                                 <p className="name">{item}</p>
                                 <img className="topic" src={category[item].image} />
                             </Link>
