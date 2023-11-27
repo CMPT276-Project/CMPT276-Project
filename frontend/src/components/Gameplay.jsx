@@ -6,8 +6,8 @@ import "../styles/Gameplay.css"
 function Gameplay({ dataFromParent, sendDataToParent }) {
 
   const navigate = useNavigate()
-
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [numQuestions, setNumQuestions] = useState(0)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(9)
   const [renderedContent, setRenderedContent] = useState(null)
   const [renderedTime, setRenderedTime] = useState(null)
   const [type, setType] = useState([])
@@ -30,14 +30,8 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
 
   // Check if the user got answer right
   useEffect(() => {
-  
 
     if (selectedAnswer !== null) {
-
-      // If the user answers all the questions correctly, they win
-      if (currentQuestionIndex === dataFromParent.length) {
-        navigate('/winner')
-      }
 
       if (selectedAnswer === correctAnswer[currentQuestionIndex]) {
         
@@ -51,6 +45,10 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
         setSelectedAnswer(null)
         setSeconds(60)
 
+        if (currentQuestionIndex + 1 === numQuestions) {
+          navigate('/winner')
+        }
+
       } else {
         // data to parent
         sendDataToParent(score)
@@ -59,7 +57,7 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
     } else {
       console.log('selected answer is null')
     }
-  }, [selectedAnswer])
+  }, [selectedAnswer, numQuestions])
 
   useEffect(() => {
 
@@ -98,6 +96,7 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
       updateAnswers.push(newTemp)
     }
 
+    setNumQuestions(dataFromParent.length)
     setCorrectAnswer(updateCorrectAnswer)
     setAnswerOptions(updateAnswers)
     setQuestions(updateQuestions)
