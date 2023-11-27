@@ -45,10 +45,14 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
         setSelectedAnswer(null)
         setSeconds(60)
 
+        // send post request to backend here
         if (currentQuestionIndex + 1 === numQuestions) {
           navigate('/winner')
+          
+
         }
 
+      // send post request to backend here
       } else {
         // data to parent
         sendDataToParent(score)

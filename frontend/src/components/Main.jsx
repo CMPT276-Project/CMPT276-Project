@@ -89,6 +89,11 @@ function Main({ sendDataToParent }) {
                 <div className="game-title-container">
                     <span className="quiz">Quiz</span><span className="quest">Quest</span>
                 </div>
+                <div className="high-score-container">
+                    <p className="high-score">
+                        HighScore: {score}
+                    </p>
+                </div>
             </header>
             <ul className="game-topic">
                 {randomCategory.map((item, index) => {
