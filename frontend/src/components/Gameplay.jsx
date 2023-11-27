@@ -7,7 +7,7 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
 
   const navigate = useNavigate()
   const [numQuestions, setNumQuestions] = useState(0)
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(9)
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [renderedContent, setRenderedContent] = useState(null)
   const [renderedTime, setRenderedTime] = useState(null)
   const [type, setType] = useState([])
