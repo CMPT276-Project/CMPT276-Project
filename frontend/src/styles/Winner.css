@@ -6,6 +6,13 @@
     height: 100vh;
 }
 
+.winner-image {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    margin-bottom: 25px;
+}
+
 .status {
     font-size: 3rem;
     font-weight: bold;
