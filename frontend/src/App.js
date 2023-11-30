@@ -1,50 +1,80 @@
-import React, {useState, useEffect} from "react"
-import './App.css';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Main from './components/Main'
-import Difficulty from './components/Difficulty'
-import Gameplay from './components/Gameplay'
-import Loser from "./components/Loser"
-import Winner from "./components/Winner"
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Main from "./components/Main";
+import Difficulty from "./components/Difficulty";
+import Gameplay from "./components/Gameplay";
+import Loser from "./components/Loser";
+import Winner from "./components/Winner";
 
 function App() {
-
-  const [mainData, setMainData] = useState("")
-  const [difficultyData, setDifficultyData] = useState([])
-  const [officialScore, setOfficialScore] = useState(0)
+  const [mainData, setMainData] = useState("");
+  const [difficultyData, setDifficultyData] = useState([]);
+  const [officialScore, setOfficialScore] = useState(0);
 
   const handleMainDataReceive = (data) => {
-    setMainData(data)
-  }
+    setMainData(data);
+  };
 
   const handleDifficultyDataReceive = (data) => {
-    setDifficultyData(data)
-  }
+    setDifficultyData(data);
+  };
 
   const handleLoserWinnerDataReceive = (data) => {
-    setOfficialScore(data)
-  }
+    setOfficialScore(data);
+  };
 
   useEffect(() => {
-    console.log('mainData: ', mainData)
-  }, [mainData])
+    console.log("mainData: ", mainData);
+  }, [mainData]);
 
   useEffect(() => {
-    console.log('mainData: ', difficultyData)
-  }, [difficultyData])
+    console.log("mainData: ", difficultyData);
+  }, [difficultyData]);
 
   useEffect(() => {
-    console.log('mainData: ', officialScore)
-  }, [officialScore])
+    console.log("mainData: ", officialScore);
+  }, [officialScore]);
 
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Main sendDataToParent={handleMainDataReceive} />} />
-        <Route path="/difficulty" element={<Difficulty dataFromParent={mainData} sendDataToParent={handleDifficultyDataReceive} />} />
-        <Route path="/gameplay" element={<Gameplay dataFromParent={difficultyData} sendDataToParent={handleLoserWinnerDataReceive} />} />
-        <Route path="/loser" element={<Loser dataFromParent={officialScore} />} />
-        <Route path="/winner" element={<Winner dataFromParent={officialScore} />} />
+        <Route
+          path="/"
+          element={
+            <Main
+              sendDataToParent={(data) =>
+                handleMainDataReceive(data, setMainData)
+              }
+            />
+          }
+        />
+        <Route
+          path="/difficulty"
+          element={
+            <Difficulty
+              dataFromParent={mainData}
+              sendDataToParent={handleDifficultyDataReceive}
+            />
+          }
+        />
+        <Route
+          path="/gameplay"
+          element={
+            <Gameplay
+              dataFromParent={difficultyData}
+              sendDataToParent={handleLoserWinnerDataReceive}
+            />
+          }
+        />
+        <Route
+          path="/loser"
+          element={<Loser dataFromParent={officialScore} />}
+        />
+        <Route
+          path="/winner"
+          element={<Winner dataFromParent={officialScore} />}
+        />
       </Routes>
     </Router>
   );
