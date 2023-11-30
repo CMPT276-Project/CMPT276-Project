@@ -20,55 +20,52 @@ You may also see any lint errors in the console.
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Code explanation
 
-### `npm run build`
+Hierarchy of the codes:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. index.js
+2. App.js
+3. Main.jsx, Difficulty.jsx, Gameplay.jsx, Loser.jsx, Winner.jsx, BackIcon.jsx
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Ordering of the code that is shown on screen when the user plays the game:
+1. App.js
+2. Main.jsx
+3. Difficulty.jsx
+4. Gameplay.jsx
+5. Loser.jsx / Winner.jsx
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+App.js:
+- Root of all components (.jsx files)
+- Contains the routes to all the components in the project
 
-### `npm run eject`
+Main.jsx:
+- Displays the categories of the trivia question that the user can pick from. These categories can be randomized by pressing the random box icon. After the user selects the category by clicking, the selected category id is sent to Difficulty.jsx
+  How the category implementation works:
+  - Categories are intialized in a dictionary where each key represents the category of the trivia question and contains { image of the category, id of the category } as its values
+  How the randomizer implementation works:
+  - Creates a random key using random index and store it in the random category array
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Difficulty.jsx:
+- There are 3 difficulty selections (easy, medium and hard) that the user can select from.
+- After the user selects one of the doors, an api call will be made with the following parameters { id of the category, amount of the questions, difficulty } to open trivia database api, the response (the response is a block of data that contain 10 different trivia questions with the following attributes (type of question, correct answer, incorrect answers, question) ) from the api call is sent to Gameplay.jsx
+  
+Gameplay.jsx:
+- All the attributes of the response are processed, intialized and displayed on screen.
+- Contains all gameplay condition
+  - If the user answers correctly, user is sent to Winner.jsx
+  - If the user answers incorrectly, user is sent to Loser.jsx
+- Contains timer
+  - timer starts at 60 and decrements until timer hits 0. If the user does not answer by the time hits 0, user is sent to Loser.jsx
+- Contains score
+  - score is calculated based on how fast the user answers the question
+  How score is implemented:
+  - Subtract 100 by time taken to answer question
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Loser.jsx & Winner.jsx:
+- Api call is made to Giphy API with a set of parameters { api key, tag, rating, limit }
+  - tag is a type of gif (eg. sad gif, happy gif, meme gif)
+  - rating is age-appropriateness (eg. pg-13, rated r)
+  - limit is the number of gifs
+- Gif is stored in array, randomized and displayed on screen
+- Total score is displayed on screen 
