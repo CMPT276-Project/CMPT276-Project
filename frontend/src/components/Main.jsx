@@ -59,6 +59,7 @@ function Main({ sendDataToParent }) {
     }
 
     let [randomCategory, setRandomCategory] = useState([])
+    const [score, setScore]= useState(0)
     let numDisplay = 9
 
     function randomizeCategory () {
