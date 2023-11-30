@@ -25,20 +25,33 @@ function Winner({ dataFromParent }) {
   }
 
   async function fetchGIF() {
+
     try {
+
+      // get response from  the api call
       const response = await axios.get(apiURL, {params})
-      const responseData = response.data.data // array
-      const newResponseData = shuffleArray(responseData) // randomize responseData array
+
+      // get response data (in array format) from the api call
+      const responseData = response.data.data 
+
+      // randomize the response data 
+      const newResponseData = shuffleArray(responseData) 
+
+      // set the gif of the response data
       setGif(newResponseData[1].images.original.url)
+
+    // if there is an error when fetching api call, display the error
     } catch (error) {
       console.error("Error fetching response data: ", error)
     }
-  }
-
+  } 
+  
+  // fetch the gif when the score is received from Gameplay.jsx
   useEffect(() => {
     fetchGIF()
   }, [dataFromParent])
 
+  // render the image when the gif is set
   useEffect(() => {
     setRenderedImage(
       <img className="winner-image" src={gif} />

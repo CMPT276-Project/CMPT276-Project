@@ -31,38 +31,60 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
   // Check if the user got answer right
   useEffect(() => {
 
+    // if the user selected an answer
     if (selectedAnswer !== null) {
 
+      // if the user answered correctly
       if (selectedAnswer === correctAnswer[currentQuestionIndex]) {
         
+        // calculate the score based on how fast the user answered
         const timeTaken = 60 - seconds
         const scoreToAdd = Math.max(0, 100 - timeTaken)
 
+        // add the score
         setScore(score + scoreToAdd)
 
         // move to next question
         setCurrentQuestionIndex( currentQuestionIndex + 1 )
+
+        // reset selected answer
         setSelectedAnswer(null)
+
+        // reset time
         setSeconds(60)
 
-        // send post request to backend here
+        // if the user answers all questions correctly
         if (currentQuestionIndex + 1 === numQuestions) {
+
+          // send the user to the winner page
           navigate('/winner')
+
+          // send post request to backend here
           
-
         }
-
-      // send post request to backend here
+      
+      // if the user answers the question incorrectly
       } else {
-        // data to parent
+
+        // send data to Loser.jsx
         sendDataToParent(score)
+
+        // send post request to backend here
+
+        // send the user to the loser page
         navigate('/loser')
+
       }
+
     } else {
       console.log('selected answer is null')
+
     }
+
   }, [selectedAnswer, numQuestions])
 
+  // this is where everything shown on screen is intialized
+  // eg. questions, answer options, timer and score
   useEffect(() => {
 
     let updateType = []
@@ -76,30 +98,30 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
 
       const temp = []
 
-      // push types
+      // push the type of the question from the api call
       updateType.push(dataFromParent[i].type)
 
-      // remove any characters from the question
+      // remove any characters from the question from the api call
       dataFromParent[i].question = dataFromParent[i].question.replace(/(&quot\;)/g, "\"").replace(/(&rsquo\;)/g, "\"").replace(/(&#039\;)/g, "\'").replace(/(&amp\;)/g, "\"")
+
+      // push the question 
       updateQuestions.push(dataFromParent[i].question)
 
       // push correct answer
       updateCorrectAnswer.push(dataFromParent[i].correct_answer)
 
-      // push correct answer onto temp
+      // push correct and incorrect answer onto answer option array
       temp.push(dataFromParent[i].correct_answer)
-
-      // push incorrect answers
       dataFromParent[i].incorrect_answers.forEach(item => {
         temp.push(item)
       })
-
+      // randomize the answer option
       const newTemp = shuffleArray(temp)
-
-      // push the temp array into the answer options array
       updateAnswers.push(newTemp)
+
     }
 
+    // push all the arrays into corresponding state arrays
     setNumQuestions(dataFromParent.length)
     setCorrectAnswer(updateCorrectAnswer)
     setAnswerOptions(updateAnswers)
@@ -108,16 +130,19 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
   
   }, [dataFromParent])
 
+  //
   useEffect(() => {
+
     setNewAnswerOptions([])
     if (answerOptions) {
       setNewAnswerOptions(answerOptions[currentQuestionIndex])
       
-      // set timer and print the timer
+      // update and print the time in real-time
       const timer = setInterval(() => {
         setSeconds(seconds => seconds - 1)
       }, 1000)
 
+      // if the time is up, reset the interval
       if (seconds === -1) {
         console.log('time is up')
         clearInterval(timer)
@@ -126,21 +151,27 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
       return () => clearInterval(timer)
 
     } 
+    
   }, [answerOptions, currentQuestionIndex])
 
   useEffect(() => {
+
+    // display the time that updates in real-time while the user is answering
     if (seconds >= 0) {
       setRenderedTime(
         <div className="timer">
           {seconds}
         </div>
       )
+
     } else {
       setRenderedTime(
         <div className="timer">
           "Time is up!"
         </div>
       )
+
+      // if the user doesn't answer the question on time
       navigate('/loser')
     }
   }, [seconds])

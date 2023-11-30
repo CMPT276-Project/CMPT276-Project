@@ -9,7 +9,6 @@ function Loser({ dataFromParent }) {
   const [gif, setGif] = useState("")
   const [renderedImage, setRenderedImage] = useState(null)
 
-  const limit = 5
   const apiKey = "1NscCn7Jf3oBH8kb4Ew4BicIpRbY6KD0"
   const apiURL = "https://api.giphy.com/v1/gifs/search"
   const params = {
@@ -26,19 +25,30 @@ function Loser({ dataFromParent }) {
 
   async function fetchGIF() {
     try {
+      // get response from api call
       const response = await axios.get(apiURL, {params})
-      const responseData = response.data.data // array
-      const newResponseData = shuffleArray(responseData) // randomize responseData array
+
+      // get response data (in array format) from the api call
+      const responseData = response.data.data
+
+      // randomize the response data 
+      const newResponseData = shuffleArray(responseData) 
+
+      // set the gif of the response data
       setGif(newResponseData[1].images.original.url)
+
+    // if there is an error while fetching api call, display api call
     } catch (error) {
       console.error("Error fetching response data: ", error)
     }
   }
 
+  // when the score is received from Gameplay.jsx, fetch the gif
   useEffect(() => {
     fetchGIF()
   }, [dataFromParent])
 
+  // when the gif is set, render the gif
   useEffect(() => {
     setRenderedImage(
       <img className="loser-image" src={gif} />

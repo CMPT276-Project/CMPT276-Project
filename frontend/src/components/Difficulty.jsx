@@ -4,37 +4,14 @@ import {Link} from 'react-router-dom'
 import BackIcon from "./icons/BackIcon"
 import "../styles/Difficulty.css"
 
-// There will be 4 doors, difficulty of each door will be random
-// input: key.id
-
-// amount is set, type is random, difficulty is random
-
-/* 
-
-const params = {
-  amount,
-  category,
-  difficulty,
-  type
-}
-
-*/
-
 function Difficulty({ dataFromParent, sendDataToParent }) {
 
-  const [triviaData, setTriviaData] = useState([])
-
+  // this is the url where we will send api call to
   const apiURL = "https://opentdb.com/api.php"
-  const amount = 10
-  // const difficultyList = ['easy', 'medium', 'hard']
-  const typeList = ['mutiple', 'boolean']
 
-  const shuffleArray = (array) => {
-    const shuffledArray = array.sort(() => Math.random() - 0.5)
-    return shuffledArray
-  }
   async function dataDoorOne() {
 
+    // parameter that will be passed with the api call
     const params = {
       "amount": 10,
       "category": dataFromParent,
@@ -42,11 +19,19 @@ function Difficulty({ dataFromParent, sendDataToParent }) {
     }
 
     try {
+
+      // get response from the api call
       const response = await axios.get(apiURL, { params })
-      console.log(response.data.results)
+
+      // if the response is obtained from the api call
       if (response.data.results) {
+
+        // send the data from api call to Gameplay.jsx
         sendDataToParent(response.data.results)
+
       }
+
+    // if there is an error from api call, show error
     } catch (error) {
       console.error("Error fetching response data: ", error)
     }
@@ -54,6 +39,7 @@ function Difficulty({ dataFromParent, sendDataToParent }) {
 
   async function dataDoorTwo() {
 
+    // parameter that will be passed with the api call
     const params = {
       "amount": 10,
       "category": dataFromParent,
@@ -61,10 +47,19 @@ function Difficulty({ dataFromParent, sendDataToParent }) {
     }
 
     try {
+
+      // get response from the api call
       const response = await axios.get(apiURL, { params })
+
+      // if the response is obtained from the api call
       if (response.data.results) {
+
+        // send the data from api call to Gameplay.jsx
         sendDataToParent(response.data.results)
+
       }
+      
+    // if there is an error from api call, show error
     } catch (error) {
       console.error("Error fetching response data: ", error)
     }
@@ -72,6 +67,7 @@ function Difficulty({ dataFromParent, sendDataToParent }) {
 
   async function dataDoorThree() {
 
+    // parameter that will be passed with the api call
     const params = {
       "amount": 10,
       "category": dataFromParent,
@@ -79,10 +75,19 @@ function Difficulty({ dataFromParent, sendDataToParent }) {
     }
 
     try {
+
+      // get response from the api call
       const response = await axios.get(apiURL, { params })
+
+      // if the response is obtained from the api call
       if (response.data.results) {
+
+        // send the data from api call to Gameplay.jsx
         sendDataToParent(response.data.results)
+
       }
+
+    // if there is an error from api call, show error
     } catch (error) {
       console.error("Error fetching response data: ", error)
     }

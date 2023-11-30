@@ -31,6 +31,7 @@ import Cartoons from '../images/cartoon-animation.jpeg'
 
 function Main({ sendDataToParent }) {
 
+    // Initilaize the categories that the user will select from
     const category = {
         GeneralKnowledge: {image: GeneralKnowledge, id: 9},
         Books: {image: Books, id: 10},
@@ -64,19 +65,33 @@ function Main({ sendDataToParent }) {
 
     function randomizeCategory () {
         let keys = Object.keys(category) // Get all the keys in category
+
+        // empty the random category beforehand
         setRandomCategory([])
+
+        // for the number of keys that will be displayed on screen (9)
         for (let i = 0; i < numDisplay; i++) {
+
+            // create random index
             const randomIndex = Math.floor(Math.random()*keys.length)
+
+            // set random key using the random index
             const randomKey = keys[randomIndex]
+
+            // Store the random key in a new random category array
             setRandomCategory(prevRandomCategory => [...prevRandomCategory, randomKey])
+
+            // So that the same random index does not appear again
             keys.splice(randomIndex, 1) 
         }
     }
 
+    // send the data to difficulty.jsx
     function sendData(data) {
         sendDataToParent(data)
     }
 
+    // randomize the categories initially
     useEffect(() => {
         randomizeCategory()
     }, [])
