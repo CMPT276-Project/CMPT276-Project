@@ -55,6 +55,7 @@ function App() {
             <Difficulty
               dataFromParent={mainData}
               sendDataToParent={handleDifficultyDataReceive}
+              getScore={getScore}
             />
           }
         />

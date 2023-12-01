@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "../styles/Main.css";
 
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";
@@ -31,6 +32,21 @@ import Cartoons from "../images/cartoon-animation.jpeg";
 
 function Main({ sendDataToParent }) {
   // Initilaize the categories that the user will select from
+  const [guid, setGuid] = useState(null);
+
+  const createUser = () => {
+    axios
+      .get(`http://localhost:8080/api/v1/user/register`)
+      .then((response) => {
+        const newGuid = response.data.id;
+        console.log(newGuid);
+        setGuid(newGuid);
+      })
+      .catch((error) => {
+        console.error(`Error creating a user:`, error);
+      });
+  };
+
   const category = {
     GeneralKnowledge: { image: GeneralKnowledge, id: 9 },
     Books: { image: Books, id: 10 },
@@ -87,6 +103,10 @@ function Main({ sendDataToParent }) {
     }
   }
 
+  const getScore = (score) => {
+    setScore(score);
+  };
+
   // send the data to difficulty.jsx
   function sendData(data) {
     sendDataToParent(data);
@@ -94,6 +114,8 @@ function Main({ sendDataToParent }) {
 
   // randomize the categories initially
   useEffect(() => {
+    console.log("USE EFFECT CALLED!!!!");
+    createUser();
     randomizeCategory();
   }, []);
 
@@ -119,9 +141,12 @@ function Main({ sendDataToParent }) {
           return (
             <li className="key-values" key={index}>
               <Link
-                className="key-link"
+                className="key-link" // onclick={()=>{ f1(); f2() }}
                 to="/difficulty"
-                onClick={() => sendData(category[item].id)}
+                onClick={() => {
+                  sendData(category[item].id);
+                  getScore(score);
+                }}
               >
                 <p className="name">{item}</p>
                 <img className="topic" src={category[item].image} />
