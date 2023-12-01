@@ -1,8 +1,8 @@
 # What is this?
 
-This repository serves as a working POC of the backend component of our Kahoot style game.
+This repository contains the backend codebase for our scoring systems.
 
-This POC will be concerned with two components of our game: the backend, which consists of setting up the database and establishing a WebSocket server, and the database, which will store the scores of our players.
+Presently (as of 2023 November 26) the feature list is stabilized and has been copied into our project monorepo.
 
 # Prerequisites
 
@@ -54,7 +54,7 @@ To get a user's score, send a GET request to `/api/v1/score/:guid`, where `:guid
 
 To update a user's score, send a PATCH request to `/api/v1/score/:guid`, where `:guid` is the GUID of the user. The request body should contain a JSON object with a single key, `score`, and a integer value to update by.
 
-Internally, we will store the score submitted only if it has larger than the one stored in the database.
+If the submitted score is higher than what is stored, then the score in the database is updated with the submitted score. If the score is less or equal then it is discarded.
 
 # Dependency Rationale
 
