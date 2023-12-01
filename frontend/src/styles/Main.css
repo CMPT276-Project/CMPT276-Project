@@ -64,7 +64,7 @@ body {
   display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
-  margin: 5px;
+  margin: 75px;
 }
 
 .game-topic li .topic {
