@@ -10,7 +10,9 @@ const db = new Database(db_path);
 
 const guid = randomUUID();
 const name = "Taylor";
-const update_score = 10;
+const score_current = 10;
+const score_less = 1;
+const score_more = 100;
 
 describe("Users", function() {
     test("Adding user to database", async function() {
@@ -70,8 +72,26 @@ describe("Scores", function() {
         );
     });
 
-    test("Update user score", async function() {
-        await update_user_score_by_amount(db, guid, update_score,
+    test("Update user high score", async function() {
+        await update_user_score_by_amount(db, guid, score_current,
+            function() { },
+            function(error) {
+                // TODO: Unknown test case
+            }
+        );
+
+        await get_score_for_user(db, guid, 
+            function(score) {
+                expect(score).toBe(score_current);
+            },
+            function(error) {
+                // TODO: Unsure what to test for this branch
+            }
+        );
+    });
+    
+    test("Update user high score - Score is less than stored", async function() {
+        await update_user_score_by_amount(db, guid, score_less,
             function() { },
             function(error) {
                 // TODO: Unsure what to test for this branch.
@@ -80,11 +100,29 @@ describe("Scores", function() {
 
         await get_score_for_user(db, guid, 
             function(score) {
-                expect(score).toBe(update_score);
+                expect(score).toBe(score_current);
             },
             function(error) {
                 // TODO: Unsure what to test for this branch
             }
         );
-    })
+    });
+
+    test("Update user high score - Score is higher than stored", async function() {
+        await update_user_score_by_amount(db, guid, score_more,
+            function() { },
+            function(error) {
+                // TODO: Unsure what to test for this branch.
+            }
+        );
+
+        await get_score_for_user(db, guid, 
+            function(score) {
+                expect(score).toBe(score_more);
+            },
+            function(error) {
+                // TODO: Unsure what to test for this branch
+            }
+        );
+    });
 })
