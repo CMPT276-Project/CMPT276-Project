@@ -52,8 +52,10 @@ async function update_user_score_by_amount(database, guid, score, success_callba
         const get = await database.get_statement(get_score_sql, guid);
         get.statement.reset();
 
-        const store = await database.run_statement(store_score_sql, get.row.score + score, guid);
-        store.statement.reset();
+        if(score > get.row.score) {
+            const store = await database.run_statement(store_score_sql, score, guid);
+            store.statement.reset();
+        }
 
         success_callback();
     }
