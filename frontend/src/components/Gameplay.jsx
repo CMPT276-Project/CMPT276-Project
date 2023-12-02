@@ -81,7 +81,7 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
 
     }
 
-  }, [selectedAnswer, numQuestions])
+  }, [selectedAnswer, correctAnswer, currentQuestionIndex, navigate, score, seconds, sendDataToParent, numQuestions])
 
   // this is where everything shown on screen is intialized
   // eg. questions, answer options, timer and score
@@ -102,7 +102,7 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
       updateType.push(dataFromParent[i].type)
 
       // remove any characters from the question from the api call
-      dataFromParent[i].question = dataFromParent[i].question.replace(/(&quot\;)/g, "\"").replace(/(&rsquo\;)/g, "\"").replace(/(&#039\;)/g, "\'").replace(/(&amp\;)/g, "\"")
+      
 
       // push the question 
       updateQuestions.push(dataFromParent[i].question)
@@ -152,7 +152,7 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
 
     } 
     
-  }, [answerOptions, currentQuestionIndex])
+  }, [answerOptions, currentQuestionIndex, seconds, navigate])
 
   useEffect(() => {
 
@@ -174,13 +174,13 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
       // if the user doesn't answer the question on time
       navigate('/loser')
     }
-  }, [seconds])
+  }, [seconds, navigate])
 
   useEffect(() => {
     const answerBuffer = []
     if (newAnswerOptions) {
       newAnswerOptions.forEach((item, index) => {
-        item = item.replace(/(&quot\;)/g, "\"").replace(/(&rsquo\;)/g, "\"").replace(/(&#039\;)/g, "\'").replace(/(&amp\;)/g, "\"")
+        item = item.replace(/(&quot)/g, "\"").replace(/(&rsquo)/g, "\"").replace(/(&#039)/g, "'").replace(/(&amp)/g, "\"")
         answerBuffer.push(
           <div className="option" key={index} onClick={() => handleAnswerClick(item)}>
             {item}
