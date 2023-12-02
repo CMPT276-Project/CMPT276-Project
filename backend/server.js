@@ -3,6 +3,7 @@
 import { randomUUID } from "node:crypto";
 
 import Fastify from "fastify";
+import cors from "@fastify/cors";
 
 import { Database } from "./app/database.js";
 import { create_user, update_user_name, get_user } from "./app/users.js";
@@ -24,9 +25,6 @@ const database = new Database(db_path);
 
 // Generate, store, and return a GUID
 fastify.get("/api/v1/user/register", async function(request, response) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Method", "GET");
-
     await create_user(database, randomUUID(), 
         function(guid) {
             response.send({
@@ -41,9 +39,6 @@ fastify.get("/api/v1/user/register", async function(request, response) {
 
 // Update a user's name
 fastify.post("/api/v1/user/:guid", async function(request, response) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Method", "POST");
-
     const guid = request.params["guid"];
     const name = request.body["name"];
 
@@ -57,9 +52,6 @@ fastify.post("/api/v1/user/:guid", async function(request, response) {
 
 // Get a user's record
 fastify.get("/api/v1/user/:guid", async function(request, response) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Method", "GET");
-
     const guid = request.params["guid"];
 
     await get_user(database, guid,
@@ -78,9 +70,6 @@ fastify.get("/api/v1/user/:guid", async function(request, response) {
 
 // Get all scores
 fastify.get("/api/v1/score", async function(request, response) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Method", "GET");
-
     await get_all_scores(database, 
         function(scores) {
             response.send(scores);
@@ -95,9 +84,6 @@ fastify.get("/api/v1/score", async function(request, response) {
 
 // Get user's current score
 fastify.get("/api/v1/score/:guid", async function(request, response) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Method", "GET");
-
     const guid = request.params["guid"];
 
     await get_score_for_user(database, guid,
@@ -114,9 +100,6 @@ fastify.get("/api/v1/score/:guid", async function(request, response) {
 
 // Update a user's score
 fastify.patch("/api/v1/score/:guid", async function(request, response) {
-    response.header("Access-Control-Allow-Origin", "*");
-    response.header("Access-Control-Allow-Method", "PATCH");
-
     const guid = request.params["guid"];
     const update_by_amount = request.body["score"];
 
@@ -137,6 +120,11 @@ fastify.patch("/api/v1/score/:guid", async function(request, response) {
 // Start the server
 const start = async function() {
     try {
+        await fastify.register(cors, {
+            origin: "*",
+            methods: ["GET", "POST", "PATCH"]
+        });
+
         await fastify.listen({
             host: hostname,
             port: port
