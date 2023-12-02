@@ -1,98 +1,102 @@
 body {
-    background-color: rgb(214, 230, 242);
+  background-color: rgb(214, 230, 242);
 }
 
 .game-header {
-    flex: 1;
-    min-height: 130px;
-    font-weight: bold;
-    display: grid; 
-    grid-template-columns: 1fr 1fr 1fr;
-    padding: 25px 0px;
-    background-color: rgb(118, 159, 205);
-    box-shadow: 0 0 10px 2.5px rgba(0, 0, 0, 0.25);
+  flex: 1;
+  min-height: 130px;
+  font-weight: bold;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 25px 0px;
+  background-color: rgb(118, 159, 205);
+  box-shadow: 0 0 10px 2.5px rgba(0, 0, 0, 0.25);
 }
 
 .game-title-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .randomize-icon-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .high-score-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.25rem;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25rem;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .randomize-icon {
-    font-size: 5rem;
-    cursor: pointer;
-    transition: font-size 0.15s;
+  font-size: 5rem;
+  cursor: pointer;
+  transition: font-size 0.15s;
 }
 
 .randomize-icon:active {
-    font-size: 4rem;
+  font-size: 4rem;
 }
 
 .game-title-container .quiz {
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    font-size: 3rem;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-size: 3rem;
 }
 
 .game-title-container .quest {
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-    font-size: 2.5rem;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
+  font-size: 2.5rem;
 }
 
 .game-topic {
-    flex: 5;
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin: 5px;
+  flex: 5;
+  display: grid;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  margin: 75px;
 }
 
 .game-topic li .topic {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    cursor: pointer;
-    padding: 5px;
-    transition: opacity 0.3s, transform 0.3s;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: pointer;
+  padding: 5px;
+  transition: opacity 0.3s, transform 0.3s;
 }
 
 .game-topic li .topic:hover {
-    opacity: 0.8;
+  opacity: 0.8;
 }
 
 .game-topic li .topic:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 .key-values .name {
-    z-index: 1;
-    position: absolute;
-    padding-left: 25px;
-    padding-top: 25px;
-    font-size: 2rem;
-    font-weight: bold;
-    color: rgb(255, 255, 255);
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+  z-index: 1;
+  position: absolute;
+  padding-left: 25px;
+  padding-top: 25px;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000,
+    1px 1px 0 #000;
 }
 
 .key-values .key-link {
-    cursor: pointer;
+  cursor: pointer;
 }
