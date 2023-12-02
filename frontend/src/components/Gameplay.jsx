@@ -63,8 +63,8 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
         // send data to Loser.jsx
         sendDataToParent(score);
 
-        // send post request to backend here
-
+        // send post request to backend here // FIX: ONCE GUID IS ACCESSIBLE, USE PATCH REQUESTS TO SEND TO BACKEND
+        // FIND A WAY TO SEND RECEIVED HIGHSCORES TO MAIN.JSX TO RENDER AT HighScore
         // send the user to the loser page
         navigate("/loser");
       }

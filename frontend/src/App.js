@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
 import Main from "./components/Main";
 import Difficulty from "./components/Difficulty";
 import Gameplay from "./components/Gameplay";
@@ -11,6 +12,9 @@ function App() {
   const [mainData, setMainData] = useState("");
   const [difficultyData, setDifficultyData] = useState([]);
   const [officialScore, setOfficialScore] = useState(0);
+  const [guid, setGuid] = useState(null);
+
+  //sendGuid(guid);
 
   const handleMainDataReceive = (data) => {
     setMainData(data);
@@ -55,7 +59,6 @@ function App() {
             <Difficulty
               dataFromParent={mainData}
               sendDataToParent={handleDifficultyDataReceive}
-              getScore={getScore}
             />
           }
         />
