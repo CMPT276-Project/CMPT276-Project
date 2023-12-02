@@ -31,45 +31,41 @@ import Anime from "../images/manga-anime.jpeg";
 import Cartoons from "../images/cartoon-animation.jpeg";
 
 function Main({ sendDataToParent, sendDataToGameplay }) {
-  // Create a user and get their guid
-  const [guid, setGuid] = useState("");
-  const [userScore, setUserScore] = useState(10);
-
+  // Create a user and get their guid]
   const createUser = () => {
-    axios
-      .get(`http://localhost:8080/api/v1/user/register`)
-      .then((response) => {
-        const newGuid = response.data.id;
-        setGuid(newGuid)
-        getUserScore()
-        sendDataToGameplay(newGuid)
-      })
-      .catch((error) => {
-        console.error(`Error creating a user:`, error);
-      });
-  }; 
+    const existingGuid = sessionStorage.getItem('userGuid');
+
+    if (existingGuid) {
+      sendDataToGameplay(existingGuid);
+    } else {
+      axios
+        .get(`http://localhost:8080/api/v1/user/register`)
+        .then((response) => {
+          const newGuid = response.data.id;
+          sendDataToGameplay(newGuid);
+          sessionStorage.setItem('userGuid', newGuid);
+        })
+        .catch((error) => {
+          console.error(`Error creating a user:`, error);
+        });
+    }
+  };
 
   const getUserScore = () => {
     axios
-      .get(`http://localhost:8080/api/v1/score/${guid}`)
+      .get(`http://localhost:8080/api/v1/score/${sessionStorage.getItem('userGuid')}`)
       .then((response) => {
-        console.log("RESPONSE DATA: ", response.data.score);
         const newUserScore = response.data.score;
-        console.log("USER SCORED OMOEMGOEMGOEMG: ", newUserScore)
-        setUserScore(newUserScore)
+        setScore(newUserScore)
       })
       .catch((error) => {
         console.error(`Error creating a user:`, error);
       });
-  }; 
+  };
 
-  useEffect(() => {
-    console.log("User Score from backend: ", userScore)
-  }, [])
-
-  useEffect(() => {
-    createUser();
-  }, []);
+useEffect(() => {
+  createUser()
+}, [])
 
   // Initilaize the categories that the user will select from
   const category = {
@@ -129,9 +125,9 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
   }
 
   const getScore = (score) => {
-    setScore(score); // FIX: FIND WAY TO SEND SCORE AND GUID TO DIFFICULTY THEN TO GAMEPLAY
+    getUserScore(); // FIX: FIND WAY TO SEND SCORE AND GUID TO DIFFICULTY THEN TO GAMEPLAY
   };
-
+  getScore();
   // send the data to difficulty.jsx
   function sendData(data) {
     sendDataToParent(data);
@@ -164,7 +160,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
           return (
             <li className="key-values" key={index}>
               <Link
-                className="key-link" 
+                className="key-link"
                 to="/difficulty"
                 onClick={() => {
                   sendData(category[item].id);

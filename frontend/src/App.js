@@ -49,7 +49,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Main sendDataToGameplay={handleGUID} sendDataToParent={handleMainDataReceive} />} />
+        <Route path="/trivia-game" element={<Main sendDataToGameplay={handleGUID} sendDataToParent={handleMainDataReceive} />} />
         <Route path="/difficulty" element={<Difficulty dataFromParent={mainData} sendDataToParent={handleDifficultyDataReceive} />} />
         <Route path="/gameplay" element={<Gameplay guidFromParent={guid} dataFromParent={difficultyData} sendDataToParent={handleLoserWinnerDataReceive} />} />
         <Route path="/loser" element={<Loser dataFromParent={officialScore} />} />

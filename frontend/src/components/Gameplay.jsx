@@ -5,6 +5,7 @@ import BackIcon from "./icons/BackIcon";
 import "../styles/Gameplay.css";
 
 function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
+
   const navigate = useNavigate();
   const [numQuestions, setNumQuestions] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -58,7 +59,16 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         if (currentQuestionIndex + 1 === numQuestions) {
           // send the user to the winner page
           navigate("/winner");
-
+          axios
+          .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, { score: score })
+          .then((response) => {
+            if (response.data.updated) {
+              console.log("posted highscore!");
+            }
+          })
+          .catch((error) => {
+            console.error(`Error updating user score:`, error);
+          });
           // send post request to backend here
         }
 
