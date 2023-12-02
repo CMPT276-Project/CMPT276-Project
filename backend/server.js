@@ -143,7 +143,7 @@ const start = async function() {
         });
     }
     catch (error) {
-        fastify.log.error(err);
+        fastify.log.error(error);
         process.exit(1);
     }
 }

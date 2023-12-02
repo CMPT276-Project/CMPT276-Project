@@ -34,7 +34,6 @@ function Main({ sendDataToParent }) {
   // Create a user and get their guid
   const [guid, setGuid] = useState(null);
 
-  console.log("MOUNT MOUNT MOUNT");
   const createUser = () => {
     axios
       .get(`http://localhost:8080/api/v1/user/register`)
@@ -46,7 +45,7 @@ function Main({ sendDataToParent }) {
       .catch((error) => {
         console.error(`Error creating a user:`, error);
       });
-  }; // FIX: GENERATING MULTIPLE GUIDs, COMPONENT MOUNTING TWICE? FIXED
+  }; 
 
   useEffect(() => {
     createUser();
