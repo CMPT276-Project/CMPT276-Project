@@ -11,6 +11,7 @@
   "author": "Kelvin Hu <kha115@sfu.ca>",
   "license": "MIT",
   "dependencies": {
+    "@fastify/cors": "^8.4.1",
     "fastify": "^4.24.3",
     "sqlite3": "^5.1.6"
   },
