@@ -50,7 +50,7 @@ function Winner({ dataFromParent }) {
 
   // render the image when the gif is set
   useEffect(() => {
-    setRenderedImage(<img className="winner-image" src={gif} />);
+    setRenderedImage(<img className="winner-image" src={gif} alt="You Lost ;("/>);
   }, [gif]);
 
   return (

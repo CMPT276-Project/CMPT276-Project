@@ -49,7 +49,7 @@ function Loser({ dataFromParent }) {
 
   // when the gif is set, render the gif
   useEffect(() => {
-    setRenderedImage(<img className="loser-image" src={gif} />);
+    setRenderedImage(<img className="loser-image" src={gif} alt="You Lost ;("/>);
   }, [gif]);
 
   return (
