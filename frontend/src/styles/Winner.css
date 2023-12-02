@@ -14,9 +14,12 @@
 }
 
 .status {
+  margin-top: 25px;
+  margin-bottom: 25px;
+  color: rgb(166, 227, 233);
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
   font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 50px;
 }
 
 .score-board,
@@ -30,7 +33,7 @@
   width: 500px;
   height: 150px;
   margin-bottom: 25px;
-  background-color: rgb(185, 215, 234);
+  background-color: rgb(113, 201, 206);
   box-shadow: 0 0 2.5px 0.5px rgba(0, 0, 0, 0.25);
   border-radius: 8px;
 }

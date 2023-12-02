@@ -58,6 +58,9 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         if (currentQuestionIndex + 1 === numQuestions) {
           // send the user to the winner page
           navigate("/winner");
+
+          sendDataToParent(score)
+
           axios
             .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, {
               score: score,

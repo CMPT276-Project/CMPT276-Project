@@ -81,7 +81,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
       api_key: apiKey,
       q: categoryName,
       lang: "en",
-      rating: "pg",
+      rating: "pg-13",
       sort: "relevance",
       limit: gifLimit,
       offset: randomOffset,
@@ -194,9 +194,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
         {randomCategory.map((item, index) => {
           return (
             <li className="key-values" key={index}>
-              <Link
-                className="key-link"
-                to="/difficulty"
+              <Link className="key-link"to="/difficulty"
                 onClick={() => {
                   sendData(category[item.key].id);
                 }}
