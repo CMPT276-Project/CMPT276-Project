@@ -4,7 +4,7 @@ import axios from "axios";
 import BackIcon from "./icons/BackIcon";
 import "../styles/Gameplay.css";
 
-function Gameplay({ dataFromParent, sendDataToParent }) {
+function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
   const navigate = useNavigate();
   const [numQuestions, setNumQuestions] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -27,6 +27,10 @@ function Gameplay({ dataFromParent, sendDataToParent }) {
     const shuffledArray = array.sort(() => Math.random() - 0.5);
     return shuffledArray;
   };
+
+  useEffect(() => {
+    console.log("guidFromParent: ", guidFromParent)
+  }, [guidFromParent])
 
   // Check if the user got answer right
   useEffect(() => {

@@ -30,17 +30,15 @@ import Gadgets from "../images/gadgets.png";
 import Anime from "../images/manga-anime.jpeg";
 import Cartoons from "../images/cartoon-animation.jpeg";
 
-function Main({ sendDataToParent }) {
+function Main({ sendDataToParent, sendDataToGameplay }) {
   // Create a user and get their guid
-  const [guid, setGuid] = useState(null);
 
   const createUser = () => {
     axios
       .get(`http://localhost:8080/api/v1/user/register`)
       .then((response) => {
         const newGuid = response.data.id;
-        console.log(newGuid);
-        setGuid(newGuid);
+        sendDataToGameplay(newGuid)
       })
       .catch((error) => {
         console.error(`Error creating a user:`, error);
