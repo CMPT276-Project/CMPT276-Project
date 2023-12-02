@@ -24,7 +24,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
 
   const apiKey = "1NscCn7Jf3oBH8kb4Ew4BicIpRbY6KD0";
   const apiURL = "https://api.giphy.com/v1/gifs/search";
-  const gifLimit = 20;
+  const gifLimit = 10;
   const randomOffset = Math.floor(Math.random() * 100);
 
   const categoryConfig = {
@@ -32,7 +32,8 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
     2: { q: "cheer" },
     3: { q: "happy pokemon" },
     4: { q: "lets go" },
-    5: { q: "encourage" }
+    5: { q: "encourage" },
+    6: { q: "happy anime" },
   };
 
   const getRandomCategoryKey = () => {
@@ -244,9 +245,9 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
       newAnswerOptions.forEach((item, index) => {
         item = item
           .replace(/(&quot\;)/g, '"')
-          .replace(/(&rsquo\;)/g, '"')
+          .replace(/(&rsquo\;)/g, "'")
           .replace(/(&#039\;)/g, "'")
-          .replace(/(&amp\;)/g, '"');
+          .replace(/(&amp\;)/g, "&");
         answerBuffer.push(
           <div
             className="option"

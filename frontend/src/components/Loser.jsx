@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Loser.css";
-import { useNavigate, useLocation as useRouterLocation } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation as useRouterLocation,
+} from "react-router-dom";
 import axios from "axios";
 function Loser({ dataFromParent }) {
   const navigate = useNavigate();
@@ -18,7 +21,7 @@ function Loser({ dataFromParent }) {
     lang: "en",
     rating: "pg",
     sort: "relevance",
-    limit: 50,
+    limit: 20,
   };
 
   const shuffleArray = (array) => {

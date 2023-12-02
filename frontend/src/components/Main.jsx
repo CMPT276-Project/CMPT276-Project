@@ -104,7 +104,6 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
   };
 
   const categoricalGif = async (categoryName) => {
-
     const categoryParam = categoryConfig[categoryName];
     console.log(categoryParam);
 
@@ -121,9 +120,13 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
     try {
       const response = await axios.get(apiURL, { params });
       const responseData = response.data.data;
-      if (responseData.length > 0) {
-        const randomIndex = Math.floor(Math.random() * responseData.length);
-        return responseData[randomIndex].images.original.url;
+      const filteredData = responseData.filter(
+        (gif) => !gif.rating || gif.rating.toLowerCase() !== "r"
+      );
+
+      if (filteredData.length > 0) {
+        const randomIndex = Math.floor(Math.random() * filteredData.length);
+        return filteredData[randomIndex].images.original.url;
       }
       // if gif isn't found
       return null;
