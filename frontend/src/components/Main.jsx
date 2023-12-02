@@ -76,10 +76,41 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
   const gifLimit = 30;
   const randomOffset = Math.floor(Math.random() * 100);
 
+  const categoryConfig = {
+    GeneralKnowledge: { q: "think" },
+    Books: { q: "reading" },
+    Film: { q: "black and white films" },
+    Music: { q: "music" },
+    MusicalTheatre: { q: "theatre opera" },
+    Television: { q: "watching tv" },
+    VideoGames: { q: "gameplay videos" },
+    BoardGames: { q: "board game" },
+    ScienceNature: { q: "nature" },
+    Computer: { q: "computer" },
+    Math: { q: "math" },
+    Mythology: { q: "mythology" },
+    Sports: { q: "sports hype" },
+    Geography: { q: "map" },
+    History: { q: "History" },
+    Politics: { q: "protest" },
+    Art: { q: "art" },
+    Celebrities: { q: "celebrity" },
+    Animals: { q: "funny animals" },
+    Vehicles: { q: "cars" },
+    Comics: { q: "comics" },
+    Gadgets: { q: "gadgets" },
+    Anime: { q: "anime" },
+    Cartoons: { q: "cartoon" },
+  };
+
   const categoricalGif = async (categoryName) => {
+
+    const categoryParam = categoryConfig[categoryName];
+    console.log(categoryParam);
+
     const params = {
       api_key: apiKey,
-      q: categoryName,
+      q: categoryParam.q,
       lang: "en",
       rating: "pg-13",
       sort: "relevance",
@@ -194,7 +225,9 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
         {randomCategory.map((item, index) => {
           return (
             <li className="key-values" key={index}>
-              <Link className="key-link"to="/difficulty"
+              <Link
+                className="key-link"
+                to="/difficulty"
                 onClick={() => {
                   sendData(category[item.key].id);
                 }}
