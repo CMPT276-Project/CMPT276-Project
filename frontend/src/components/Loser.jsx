@@ -60,7 +60,7 @@ function Loser({ dataFromParent }) {
         <p className="status">You Lose</p>
         {renderedImage}
         <div className="score-board">Your Score: {dataFromParent} </div>
-        <div className="play-again" onClick={() => navigate('/')}>Play Again</div>
+        <div className="play-again" onClick={() => navigate('/trivia-game')}>Play Again</div>
     </div>
   )
 }
