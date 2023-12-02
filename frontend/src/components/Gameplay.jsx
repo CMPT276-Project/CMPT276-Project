@@ -5,7 +5,6 @@ import BackIcon from "./icons/BackIcon";
 import "../styles/Gameplay.css";
 
 function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
-
   const navigate = useNavigate();
   const [numQuestions, setNumQuestions] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -30,8 +29,8 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
   };
 
   useEffect(() => {
-    console.log("guidFromParent: ", guidFromParent)
-  }, [guidFromParent])
+    console.log("guidFromParent: ", guidFromParent);
+  }, [guidFromParent]);
 
   // Check if the user got answer right
   useEffect(() => {
@@ -60,15 +59,18 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
           // send the user to the winner page
           navigate("/winner");
           axios
-          .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, { score: score })
-          .then((response) => {
-            if (response.data.updated) {
-              console.log("posted highscore!");
-            }
-          })
-          .catch((error) => {
-            console.error(`Error updating user score:`, error);
-          });
+            .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, {
+              score: score,
+            })
+            .then((response) => {
+              if (response.data.updated) {
+                console.log("posted highscore!");
+              }
+            })
+            .catch((error) => {
+              console.error(`Error updating user score:`, error);
+            });
+          // send post request to backend here
         }
         // if the user answers the question incorrectly
       } else {
@@ -77,15 +79,22 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
 
         //POST => UPDATES SCORE
         axios
-        .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, { score: score })
-        .then((response) => {
-          if (response.data.updated) {
-            console.log("posted highscore!");
-          }
-        })
-        .catch((error) => {
-          console.error(`Error updating user score:`, error);
-        });
+          .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, {
+            score: score,
+          })
+          .then((response) => {
+            if (response.data.updated) {
+              console.log("posted highscore!");
+            }
+          })
+          .catch((error) => {
+            console.error(`Error updating user score:`, error);
+          });
+        // send post request to backend here // FIX: ONCE GUID IS ACCESSIBLE, USE PATCH REQUESTS TO SEND TO BACKEND
+        // FIND A WAY TO SEND RECEIVED HIGHSCORES TO MAIN.JSX TO RENDER AT HighScore
+        // send the user to the loser page
+
+        // GET REQUEST? NEW SCORE
         navigate("/loser");
       }
     } else {

@@ -14,7 +14,8 @@ function Winner({ dataFromParent }) {
   const params = {
     api_key: apiKey,
     q: "win",
-    rating: "pg-13",
+    rating: "pg",
+    sort: "relevance",
     limit: 50,
   };
 
@@ -50,7 +51,9 @@ function Winner({ dataFromParent }) {
 
   // render the image when the gif is set
   useEffect(() => {
-    setRenderedImage(<img className="winner-image" src={gif} alt="You Lost ;("/>);
+    setRenderedImage(
+      <img className="winner-image" src={gif} alt="You Lost ;(" />
+    );
   }, [gif]);
 
   return (
