@@ -13,7 +13,9 @@ function Loser({ dataFromParent }) {
   const params = {
     api_key: apiKey,
     q: "lose",
-    rating: "pg-13",
+    lang: "en",
+    rating: "pg",
+    sort: "relevance",
     limit: 50,
   };
 
@@ -49,7 +51,9 @@ function Loser({ dataFromParent }) {
 
   // when the gif is set, render the gif
   useEffect(() => {
-    setRenderedImage(<img className="loser-image" src={gif} alt="You Lost ;("/>);
+    setRenderedImage(
+      <img className="loser-image" src={gif} alt="You Lost ;(" />
+    );
   }, [gif]);
 
   return (

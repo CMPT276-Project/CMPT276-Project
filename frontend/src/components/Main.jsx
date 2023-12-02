@@ -33,7 +33,7 @@ import Cartoons from "../images/cartoon-animation.jpeg";
 function Main({ sendDataToParent, sendDataToGameplay }) {
   // Create a user and get their guid]
   const createUser = () => {
-    const existingGuid = sessionStorage.getItem('userGuid');
+    const existingGuid = sessionStorage.getItem("userGuid");
 
     if (existingGuid) {
       sendDataToGameplay(existingGuid);
@@ -43,7 +43,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
         .then((response) => {
           const newGuid = response.data.id;
           sendDataToGameplay(newGuid);
-          sessionStorage.setItem('userGuid', newGuid);
+          sessionStorage.setItem("userGuid", newGuid);
         })
         .catch((error) => {
           console.error(`Error creating a user:`, error);
@@ -53,19 +53,54 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
 
   const getUserScore = () => {
     axios
-      .get(`http://localhost:8080/api/v1/score/${sessionStorage.getItem('userGuid')}`)
+      .get(
+        `http://localhost:8080/api/v1/score/${sessionStorage.getItem(
+          "userGuid"
+        )}`
+      )
       .then((response) => {
         const newUserScore = response.data.score;
-        setScore(newUserScore)
+        setScore(newUserScore);
       })
       .catch((error) => {
         console.error(`Error creating a user:`, error);
       });
   };
 
-useEffect(() => {
-  createUser()
-}, [])
+  useEffect(() => {
+    createUser();
+  }, []);
+
+  const apiKey = "1NscCn7Jf3oBH8kb4Ew4BicIpRbY6KD0";
+  const apiURL = "https://api.giphy.com/v1/gifs/search";
+  const gifLimit = 30;
+  const randomOffset = Math.floor(Math.random() * 100);
+
+  const categoricalGif = async (categoryName) => {
+    const params = {
+      api_key: apiKey,
+      q: categoryName,
+      lang: "en",
+      rating: "pg",
+      sort: "relevance",
+      limit: gifLimit,
+      offset: randomOffset,
+    };
+
+    try {
+      const response = await axios.get(apiURL, { params });
+      const responseData = response.data.data;
+      if (responseData.length > 0) {
+        const randomIndex = Math.floor(Math.random() * responseData.length);
+        return responseData[randomIndex].images.original.url;
+      }
+      // if gif isn't found
+      return null;
+    } catch (error) {
+      console.error(`Error getching GIF for ${categoryName}: `, error);
+      return null;
+    }
+  };
 
   // Initilaize the categories that the user will select from
   const category = {
@@ -101,7 +136,6 @@ useEffect(() => {
 
   function randomizeCategory() {
     let keys = Object.keys(category); // Get all the keys in category
-
     // empty the random category beforehand
     setRandomCategory([]);
 
@@ -109,16 +143,14 @@ useEffect(() => {
     for (let i = 0; i < numDisplay; i++) {
       // create random index
       const randomIndex = Math.floor(Math.random() * keys.length);
-
-      // set random key using the random index
       const randomKey = keys[randomIndex];
-      console.log(randomKey);
-      // Store the random key in a new random category array
-      setRandomCategory((prevRandomCategory) => [
-        ...prevRandomCategory,
-        randomKey,
-      ]);
 
+      categoricalGif(randomKey).then((gifUrl) => {
+        setRandomCategory((prevRandomCategory) => [
+          ...prevRandomCategory,
+          { key: randomKey, gifUrl: gifUrl },
+        ]);
+      });
       // So that the same random index does not appear again
       keys.splice(randomIndex, 1);
     }
@@ -149,10 +181,13 @@ useEffect(() => {
         </div>
         <div className="game-title-container">
           <span className="quiz">Quiz</span>
-          <span className="quest">Quest</span>
+          <span className="quest">Quest!</span>
         </div>
         <div className="high-score-container">
           <p className="high-score">HighScore: {score}</p>
+        </div>
+        <div className="category-text-container">
+          <p className="category-text">Pick a category!</p>
         </div>
       </header>
       <ul className="game-topic">
@@ -163,11 +198,26 @@ useEffect(() => {
                 className="key-link"
                 to="/difficulty"
                 onClick={() => {
-                  sendData(category[item].id);
+                  sendData(category[item.key].id);
                 }}
               >
-                <p className="name">{item}</p>
-                <img className="topic" src={category[item].image} />
+                <p className="name">{item.key}</p>
+                <div className="image-container">
+                  {item.gifUrl ? (
+                    <img
+                      className="topic"
+                      src={item.gifUrl}
+                      alt="Category Media"
+                    />
+                  ) : (
+                    // Use the placeholder image when gifUrl is null
+                    <img
+                      className="topic"
+                      src={category[item.key].image}
+                      alt="Placeholder"
+                    />
+                  )}
+                </div>
               </Link>
             </li>
           );
