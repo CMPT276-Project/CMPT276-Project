@@ -32,18 +32,40 @@ import Cartoons from "../images/cartoon-animation.jpeg";
 
 function Main({ sendDataToParent, sendDataToGameplay }) {
   // Create a user and get their guid
+  const [guid, setGuid] = useState("");
+  const [userScore, setUserScore] = useState(10);
 
   const createUser = () => {
     axios
       .get(`http://localhost:8080/api/v1/user/register`)
       .then((response) => {
         const newGuid = response.data.id;
+        setGuid(newGuid)
+        getUserScore()
         sendDataToGameplay(newGuid)
       })
       .catch((error) => {
         console.error(`Error creating a user:`, error);
       });
   }; 
+
+  const getUserScore = () => {
+    axios
+      .get(`http://localhost:8080/api/v1/score/${guid}`)
+      .then((response) => {
+        console.log("RESPONSE DATA: ", response.data.score);
+        const newUserScore = response.data.score;
+        console.log("USER SCORED OMOEMGOEMGOEMG: ", newUserScore)
+        setUserScore(newUserScore)
+      })
+      .catch((error) => {
+        console.error(`Error creating a user:`, error);
+      });
+  }; 
+
+  useEffect(() => {
+    console.log("User Score from backend: ", userScore)
+  }, [])
 
   useEffect(() => {
     createUser();
