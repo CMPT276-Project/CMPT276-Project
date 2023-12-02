@@ -69,9 +69,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
           .catch((error) => {
             console.error(`Error updating user score:`, error);
           });
-          // send post request to backend here
         }
-
         // if the user answers the question incorrectly
       } else {
         // send data to Loser.jsx
@@ -88,11 +86,6 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         .catch((error) => {
           console.error(`Error updating user score:`, error);
         });
-        // send post request to backend here // FIX: ONCE GUID IS ACCESSIBLE, USE PATCH REQUESTS TO SEND TO BACKEND
-        // FIND A WAY TO SEND RECEIVED HIGHSCORES TO MAIN.JSX TO RENDER AT HighScore
-        // send the user to the loser page
-
-        // GET REQUEST? NEW SCORE
         navigate("/loser");
       }
     } else {
@@ -163,7 +156,6 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         console.log("time is up");
         clearInterval(timer);
       }
-
       return () => clearInterval(timer);
     }
   }, [answerOptions, currentQuestionIndex]);
