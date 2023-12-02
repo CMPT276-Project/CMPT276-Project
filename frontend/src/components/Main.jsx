@@ -73,32 +73,32 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
 
   const apiKey = "1NscCn7Jf3oBH8kb4Ew4BicIpRbY6KD0";
   const apiURL = "https://api.giphy.com/v1/gifs/search";
-  const gifLimit = 30;
+  const gifLimit = 20;
   const randomOffset = Math.floor(Math.random() * 100);
 
   const categoryConfig = {
-    GeneralKnowledge: { q: "think" },
+    GeneralKnowledge: { q: "knowledge" },
     Books: { q: "reading" },
-    Film: { q: "black and white films" },
-    Music: { q: "music" },
+    Film: { q: "film" },
+    Music: { q: "musica" },
     MusicalTheatre: { q: "theatre opera" },
-    Television: { q: "watching tv" },
-    VideoGames: { q: "gameplay videos" },
-    BoardGames: { q: "board game" },
+    Television: { q: "television" },
+    VideoGames: { q: "VideoGames" },
+    BoardGames: { q: "chess" },
     ScienceNature: { q: "nature" },
     Computer: { q: "computer" },
     Math: { q: "math" },
     Mythology: { q: "mythology" },
     Sports: { q: "sports hype" },
     Geography: { q: "map" },
-    History: { q: "History" },
-    Politics: { q: "protest" },
+    History: { q: "historical" },
+    Politics: { q: "politics" },
     Art: { q: "art" },
-    Celebrities: { q: "celebrity" },
+    Celebrities: { q: "hollywood" },
     Animals: { q: "funny animals" },
-    Vehicles: { q: "cars" },
+    Vehicles: { q: "vehicles" },
     Comics: { q: "comics" },
-    Gadgets: { q: "gadgets" },
+    Gadgets: { q: "Gadgets" },
     Anime: { q: "anime" },
     Cartoons: { q: "cartoon" },
   };
