@@ -72,7 +72,6 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
             });
           // send post request to backend here
         }
-
         // if the user answers the question incorrectly
       } else {
         // send data to Loser.jsx
@@ -166,7 +165,6 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         console.log("time is up");
         clearInterval(timer);
       }
-
       return () => clearInterval(timer);
     }
   }, [answerOptions, currentQuestionIndex]);
