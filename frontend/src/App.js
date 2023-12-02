@@ -12,9 +12,6 @@ function App() {
   const [mainData, setMainData] = useState("");
   const [difficultyData, setDifficultyData] = useState([]);
   const [officialScore, setOfficialScore] = useState(0);
-  const [guid, setGuid] = useState(null);
-
-  //sendGuid(guid);
 
   const handleMainDataReceive = (data) => {
     setMainData(data);

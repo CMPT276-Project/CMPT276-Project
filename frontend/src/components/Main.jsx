@@ -32,6 +32,8 @@ import Cartoons from "../images/cartoon-animation.jpeg";
 
 function Main({ sendDataToParent }) {
   // Create a user and get their guid
+  const [guid, setGuid] = useState(null);
+
   console.log("MOUNT MOUNT MOUNT");
   const createUser = () => {
     axios
@@ -39,12 +41,12 @@ function Main({ sendDataToParent }) {
       .then((response) => {
         const newGuid = response.data.id;
         console.log(newGuid);
-        // setGuid(newGuid);
+        setGuid(newGuid);
       })
       .catch((error) => {
         console.error(`Error creating a user:`, error);
       });
-  }; // FIX: GENERATING MULTIPLE GUIDs, COMPONENT MOUNTING TWICE?
+  }; // FIX: GENERATING MULTIPLE GUIDs, COMPONENT MOUNTING TWICE? FIXED
 
   useEffect(() => {
     createUser();
@@ -118,7 +120,6 @@ function Main({ sendDataToParent }) {
 
   // randomize the categories initially
   useEffect(() => {
-    console.log("USE EFFECT CALLED!!!!");
     randomizeCategory();
   }, []);
 
