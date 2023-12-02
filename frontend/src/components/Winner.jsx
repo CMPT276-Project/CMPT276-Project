@@ -16,7 +16,7 @@ function Winner({ dataFromParent }) {
     q: "win",
     rating: "pg",
     sort: "relevance",
-    limit: 50,
+    limit: 20,
   };
 
   const shuffleArray = (array) => {

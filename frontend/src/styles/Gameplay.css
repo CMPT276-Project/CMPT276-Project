@@ -115,6 +115,26 @@
   align-items: center;
 }
 
+.timer-score-gif-container {
+  flex: 1; /* Adjust the flex value as needed */
+  max-width: 250px; /* Adjust the max-width as needed */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px 0px;
+}
+
+.correct-answer-gif {
+  margin: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px 2.5px rgba(0, 0, 0, 0.2);
+  background-color: rgb(166, 227, 233);
+  color: black;
+  font-size: 1.25rem;
+  padding: 10px; /* Adjust padding as needed */
+  max-width: 100%; /* Ensure the GIF doesn't exceed its container */
+}
+
 .score {
   color: black;
   max-height: 250px;

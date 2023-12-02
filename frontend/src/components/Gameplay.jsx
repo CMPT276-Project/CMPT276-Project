@@ -19,6 +19,57 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [score, setScore] = useState(0);
 
+  const [isCorrect, setIsCorrect] = useState(null);
+  const [gif, setGif] = useState("");
+
+  const apiKey = "1NscCn7Jf3oBH8kb4Ew4BicIpRbY6KD0";
+  const apiURL = "https://api.giphy.com/v1/gifs/search";
+  const gifLimit = 10;
+  const randomOffset = Math.floor(Math.random() * 100);
+
+  const categoryConfig = {
+    1: { q: "smart" },
+    2: { q: "cheer" },
+    3: { q: "happy pokemon" },
+    4: { q: "lets go" },
+    5: { q: "encourage" },
+    6: { q: "happy anime" },
+  };
+
+  const getRandomCategoryKey = () => {
+    const keys = Object.keys(categoryConfig);
+    const randomIndex = Math.floor(Math.random() * keys.length);
+    return keys[randomIndex];
+  };
+
+  const categoricalGif = async (categoryName) => {
+    const categoryParam = categoryConfig[getRandomCategoryKey()];
+
+    const params = {
+      api_key: apiKey,
+      q: categoryParam.q,
+      lang: "en",
+      rating: "pg-13",
+      sort: "rating",
+      limit: gifLimit,
+      offset: randomOffset,
+    };
+
+    try {
+      const response = await axios.get(apiURL, { params });
+      const responseData = response.data.data;
+      if (responseData.length > 0) {
+        const randomIndex = Math.floor(Math.random() * responseData.length);
+        return responseData[randomIndex].images.original.url;
+      }
+      // if gif isn't found
+      return null;
+    } catch (error) {
+      console.error(`Error getching GIF for ${categoryName}: `, error);
+      return null;
+    }
+  };
+
   function handleAnswerClick(answer) {
     setSelectedAnswer(answer);
   }
@@ -41,7 +92,10 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         // calculate the score based on how fast the user answered
         const timeTaken = 60 - seconds;
         const scoreToAdd = Math.max(0, 100 - timeTaken);
-
+        setIsCorrect(true);
+        categoricalGif().then((url) => {
+          setGif(url);
+        });
         // add the score
         setScore(score + scoreToAdd);
 
@@ -59,7 +113,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
           // send the user to the winner page
           navigate("/winner");
 
-          sendDataToParent(score)
+          sendDataToParent(score);
 
           axios
             .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, {
@@ -77,6 +131,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         }
         // if the user answers the question incorrectly
       } else {
+        setIsCorrect(false);
         // send data to Loser.jsx
         sendDataToParent(score);
 
@@ -93,12 +148,10 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
           .catch((error) => {
             console.error(`Error updating user score:`, error);
           });
-        // send post request to backend here // FIX: ONCE GUID IS ACCESSIBLE, USE PATCH REQUESTS TO SEND TO BACKEND
-        // FIND A WAY TO SEND RECEIVED HIGHSCORES TO MAIN.JSX TO RENDER AT HighScore
-        // send the user to the loser page
 
-        // GET REQUEST? NEW SCORE
-        navigate("/loser");
+        navigate("/loser", {
+          state: { correctAnswer: correctAnswer[currentQuestionIndex] },
+        });
       }
     } else {
       console.log("selected answer is null");
@@ -180,7 +233,9 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
       setRenderedTime(<div className="timer">"Time is up!"</div>);
 
       // if the user doesn't answer the question on time
-      navigate("/loser");
+      navigate("/loser", {
+        state: { correctAnswer: correctAnswer[currentQuestionIndex] },
+      });
     }
   }, [seconds]);
 
@@ -190,9 +245,9 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
       newAnswerOptions.forEach((item, index) => {
         item = item
           .replace(/(&quot\;)/g, '"')
-          .replace(/(&rsquo\;)/g, '"')
+          .replace(/(&rsquo\;)/g, "'")
           .replace(/(&#039\;)/g, "'")
-          .replace(/(&amp\;)/g, '"');
+          .replace(/(&amp\;)/g, "&");
         answerBuffer.push(
           <div
             className="option"
@@ -225,9 +280,19 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
             <div className="boolean-option-container">{renderedContent}</div>
           )}
         </div>
-        <div className="timer-score">
+        <div className="timer-score-gif-container">
           {renderedTime}
-          <div className="score">{score}</div>
+          <div className="score">Score: {score}</div>
+          {/* Display the GIF if the answer is correct */}
+          {isCorrect && gif && (
+            <div className="correct-answer-gif-container">
+              <img
+                className="correct-answer-gif"
+                src={gif}
+                alt="Correct Answer GIF"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

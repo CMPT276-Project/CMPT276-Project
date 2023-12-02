@@ -23,7 +23,8 @@
 }
 
 .score-board,
-.play-again {
+.play-again,
+.correct-answer {
   font-size: 1.5rem;
   display: flex;
   flex-direction: row;

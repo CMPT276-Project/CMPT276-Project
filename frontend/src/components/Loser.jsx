@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../styles/Loser.css";
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  useLocation as useRouterLocation,
+} from "react-router-dom";
 import axios from "axios";
 function Loser({ dataFromParent }) {
   const navigate = useNavigate();
+  const location = useRouterLocation();
+  const correctAnswer = location.state?.correctAnswer || "";
 
   const [gif, setGif] = useState("");
   const [renderedImage, setRenderedImage] = useState(null);
@@ -16,7 +21,7 @@ function Loser({ dataFromParent }) {
     lang: "en",
     rating: "pg",
     sort: "relevance",
-    limit: 50,
+    limit: 20,
   };
 
   const shuffleArray = (array) => {
@@ -56,11 +61,16 @@ function Loser({ dataFromParent }) {
     );
   }, [gif]);
 
+  useEffect(() => {
+    console.log("location.state:", location.state);
+  }, [location.state]);
+
   return (
     <div className="loser-page">
       <p className="status">You Lose</p>
       {renderedImage}
       <div className="score-board">Your Score: {dataFromParent} </div>
+      <div className="correct-answer">Correct Answer: {correctAnswer}</div>
       <div className="play-again" onClick={() => navigate("/trivia-game")}>
         Play Again
       </div>
