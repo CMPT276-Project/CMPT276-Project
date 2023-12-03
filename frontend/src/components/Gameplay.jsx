@@ -50,7 +50,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
       q: categoryParam.q,
       lang: "en",
       rating: "pg-13",
-      sort: "rating",
+      sort: "relevance",
       limit: gifLimit,
       offset: randomOffset,
     };
