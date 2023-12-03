@@ -21,7 +21,7 @@ function Loser({ dataFromParent }) {
     lang: "en",
     rating: "pg",
     sort: "relevance",
-    limit: 20,
+    limit: 10,
   };
 
   const shuffleArray = (array) => {

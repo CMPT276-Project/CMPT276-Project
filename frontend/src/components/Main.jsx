@@ -73,7 +73,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
 
   const apiKey = "1NscCn7Jf3oBH8kb4Ew4BicIpRbY6KD0";
   const apiURL = "https://api.giphy.com/v1/gifs/search";
-  const gifLimit = 20;
+  const gifLimit = 10;
   const randomOffset = Math.floor(Math.random() * 100);
 
   const categoryConfig = {
