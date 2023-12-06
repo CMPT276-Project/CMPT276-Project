@@ -2,7 +2,7 @@
   "name": "trivia-game",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://cmpt276-project.github.io/trivia-game",
+  "homepage": "https://cmpt276-project.github.io/CMPT276-Project/",
   "type": "module",
   "dependencies": {
     "@testing-library/jest-dom": "^5.17.0",
@@ -17,7 +17,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "deploy": "main -d build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "CI=false && react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!axios)/\"",
