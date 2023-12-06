@@ -19,11 +19,21 @@ const fastify = Fastify({
 
 const database = new Database(db_path);
 
-/* 
-    Routings - User Management
-*/
+/*
+    Description:
+        On a call to this endpoint, generate, store, and return a GUID that represents the user.
 
-// Generate, store, and return a GUID
+    REST Method:
+        GET
+    
+    Path:
+        /api/v1/user/register
+
+    Response Body:
+        {
+            "id": "guid"
+        }
+*/
 fastify.get("/api/v1/user/register", async function(request, response) {
     await create_user(database, randomUUID(), 
         function(guid) {
@@ -37,7 +47,21 @@ fastify.get("/api/v1/user/register", async function(request, response) {
     );
 });
 
-// Update a user's name
+/*
+    Description:
+        Updates the username of a GUID in the database
+
+    REST Method:
+        POST
+    
+    Path:
+        /api/v1/user/{guid}
+
+    Request Body:
+        {
+            "name": "Name"
+        }
+*/
 fastify.post("/api/v1/user/:guid", async function(request, response) {
     const guid = request.params["guid"];
     const name = request.body["name"];
@@ -50,7 +74,22 @@ fastify.post("/api/v1/user/:guid", async function(request, response) {
     );
 });
 
-// Get a user's record
+/*
+    Description:
+        On a call to this endpoint, returns a user's record in database
+
+    REST Method:
+        GET
+    
+    Path:
+        /api/v1/user/{guid}
+
+    Response Body:
+        {
+            "id": "guid",
+            "name": "name"
+        }
+*/
 fastify.get("/api/v1/user/:guid", async function(request, response) {
     const guid = request.params["guid"];
 
@@ -65,10 +104,26 @@ fastify.get("/api/v1/user/:guid", async function(request, response) {
 })
 
 /*
-    Routings - Score Management
-*/
+    Description:
+        On a call to this endpoint, returns a scoreboard 
 
-// Get all scores
+    REST Method:
+        GET
+    
+    Path:
+        /api/v1/score
+
+    Response Body:
+        {
+            [
+                {
+                    "name": "name",
+                    "score": 123
+                },
+                ...
+            ]
+        }
+*/
 fastify.get("/api/v1/score", async function(request, response) {
     await get_all_scores(database, 
         function(scores) {
@@ -82,7 +137,21 @@ fastify.get("/api/v1/score", async function(request, response) {
     )
 })
 
-// Get user's current score
+/*
+    Description:
+        On a call to this endpoint, returns a user's current score
+
+    REST Method:
+        GET
+    
+    Path:
+        /api/v1/score/{guid}
+
+    Response Body:
+        {
+            "score": 123
+        }
+*/
 fastify.get("/api/v1/score/:guid", async function(request, response) {
     const guid = request.params["guid"];
 
@@ -98,7 +167,21 @@ fastify.get("/api/v1/score/:guid", async function(request, response) {
     );
 });
 
-// Update a user's score
+/*
+    Description:
+        On a call to this endpoint, updates a user's score if the score provided is larger than what is in the database.
+
+    REST Method:
+        PATCH
+    
+    Path:
+        /api/v1/score/{guid}
+
+    Request Body:
+        {
+            "score": 123
+        }
+*/
 fastify.patch("/api/v1/score/:guid", async function(request, response) {
     const guid = request.params["guid"];
     const update_by_amount = request.body["score"];
