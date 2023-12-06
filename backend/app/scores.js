@@ -1,5 +1,14 @@
 "use strict";
 
+/*
+    Returns the score for a user using supplied GUID
+
+    Parameters:
+        database (Database class):          Database class.
+        guid:                               GUID of user.
+        success_callback(function(row)):    A function to execute on success.
+        failure_callback(function(err)):    A function to execute on failure.
+*/
 async function get_score_for_user(database, guid, success_callback, failure_callback) {
     const sql = `
         SELECT score
@@ -18,6 +27,14 @@ async function get_score_for_user(database, guid, success_callback, failure_call
     }
 }
 
+/*
+    Returns the scores of all users
+
+    Parameters:
+        database (Database class):          Database class.
+        success_callback(function(rows)):   A function to execute on success.
+        failure_callback(function(err)):    A function to execute on failure.
+*/
 async function get_all_scores(database, success_callback, failure_callback) {
     const sql = `
         SELECT users.name, scores.score
@@ -35,6 +52,18 @@ async function get_all_scores(database, success_callback, failure_callback) {
     }
 }
 
+/*
+    Updates the score of a user using both the supplied guid and score parameters.
+
+    Only updates if the new score is higher than the currently stored one.
+
+    Parameters:
+        database (Database class):          Database class.
+        guid:                               GUID of user.
+        score:                              New score to update with.
+        success_callback(function(row)):    A function to execute on success.
+        failure_callback(function(err)):    A function to execute on failure.
+*/
 async function update_user_score_by_amount(database, guid, score, success_callback, failure_callback) {
     const get_score_sql = `
         SELECT score
