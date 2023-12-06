@@ -40,7 +40,7 @@ To change a user's name, send a POST request to `/api/v1/user/:guid`, where `:gu
 
 ## Getting a user's record
 
-To get all data associated with a user, send a GET request to `/api/v1/user/:guid`, where `:guid` is the GUID returned from the GET request to `/api/v1/user/register`. The response's body contains a JSON object with the following fields: `id` and `score`.
+To get all data associated with a user, send a GET request to `/api/v1/user/:guid`, where `:guid` is the GUID returned from the GET request to `/api/v1/user/register`. The response's body contains a JSON object with the following fields: `id` and `name`.
 
 ## Get scoreboard
 
