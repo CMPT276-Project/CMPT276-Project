@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from 'axios';
 import "../styles/Main.css";
 
 import { GiPerspectiveDiceSixFacesRandom } from "react-icons/gi";

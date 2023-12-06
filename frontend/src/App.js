@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Main from "./components/Main";
-import Difficulty from "./components/Difficulty";
-import Gameplay from "./components/Gameplay";
-import Loser from "./components/Loser";
-import Winner from "./components/Winner";
+import Main from "./components/Main.jsx";
+import Difficulty from "./components/Difficulty.jsx";
+import Gameplay from "./components/Gameplay.jsx";
+import Loser from "./components/Loser.jsx";
+import Winner from "./components/Winner.jsx";
 
 function App() {
   const [guid, setGuid] = useState("");

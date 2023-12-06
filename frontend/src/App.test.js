@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Main from "./components/Main";
-import Difficulty from "./components/Difficulty";
-import Gameplay from "./components/Gameplay";
+import Main from "./components/Main.jsx";
+import Difficulty from "./components/Difficulty.jsx";
+import Gameplay from "./components/Gameplay.jsx";
 
 test("renders Main component through BrowserRouter, Routes, Route", () => {
   render(

@@ -165,10 +165,13 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
     let updateAnswers = [];
     let updateQuestions = [];
     let updateCorrectAnswer = [];
+    let dataFromParent = [];
 
     // organize the questions into one array
     // organize the correct answer and incorrect answer into one pool of answers
+    console.log(1);
     for (let i = 0; i < dataFromParent.length; i++) {
+      console.log(2);
       const temp = [];
 
       // push the type of the question from the api call
