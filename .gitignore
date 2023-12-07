@@ -1,2 +1,5 @@
 # Global ignores
 node_modules
+
+# Database files
+*.sqlite3
