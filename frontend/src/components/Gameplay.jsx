@@ -154,9 +154,9 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         });
       }
     } else {
-      console.log("selected answer is null");
+      console.log("selected answer is null")
     }
-  }, [selectedAnswer, numQuestions]);
+  }, [selectedAnswer, numQuestions])
 
   // this is where everything shown on screen is intialized
   // eg. questions, answer options, timer and score
@@ -182,7 +182,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         .replace(/(&quot\;)/g, '"')
         .replace(/(&rsquo\;)/g, '"')
         .replace(/(&#039\;)/g, "'")
-        .replace(/(&amp\;)/g, '"');
+        .replace(/(&amp\;)/g, '"')
 
       // push the question
       updateQuestions.push(dataFromParent[i].question);
