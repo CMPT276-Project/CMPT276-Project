@@ -1,5 +1,14 @@
 "use strict";
 
+/*
+    Creates an entry in the database for a new user with a supplied guid.
+
+    Parameters:
+        database (Database class):          Database class.
+        guid:                               Randomly generated GUID to insert.
+        success_callback(function(guid)):   A function to execute on success.
+        failure_callback(function(err)):    A function to execute on failure.
+*/
 async function create_user(database, guid, success_callback, failure_callback) {
     const create_user_sql = `
         INSERT INTO users
@@ -24,6 +33,16 @@ async function create_user(database, guid, success_callback, failure_callback) {
     }
 }
 
+/*
+    Updates a user's record in database with a new name
+
+    Parameters:
+        database (Database class):          Database class.
+        guid:                               GUID of user
+        name:                               New name to update with
+        success_callback(function()):       A function to execute on success.
+        failure_callback(function(err)):    A function to execute on failure.
+*/
 async function update_user_name(database, guid, name, success_callback, failure_callback) {
     const sql = `
         UPDATE users
@@ -42,6 +61,15 @@ async function update_user_name(database, guid, name, success_callback, failure_
     }
 }
 
+/*
+    Returns the user record associated with supplied guid
+
+    Parameters:
+        database (Database class):          Database class.
+        guid:                               GUID of user.
+        success_callback(function(guid)):   A function to execute on success.
+        failure_callback(function(err)):    A function to execute on failure.
+*/
 async function get_user(database, guid, success_callback, failure_callback) {
     const sql = `
         SELECT * 

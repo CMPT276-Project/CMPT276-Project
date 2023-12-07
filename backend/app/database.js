@@ -18,6 +18,21 @@ class Database {
         this.cache = {};
     }
 
+    /*
+        Returns a cached prepared statement, if a cached statement does not exist, then one is generated, stored, and returned.
+        
+        NOTE: Do not close the statement as other connections may be using it.
+        NOTE: Make sure to reset the cursor position when done, this can be done by calling the reset() function on the statement.
+
+        For further reading:
+            - https://stackoverflow.com/questions/1703203/in-sqlite-do-prepared-statements-really-improve-performance
+
+        Arguments:
+            sql (String):   The SQL DML to execute.
+
+        Returns:
+            A Promise that contains the cached prepared statement.
+    */
     get_prepared_statement(sql) {
         return new Promise(function(resolve, reject) {
             if(this.cache[sql] === undefined) {
@@ -35,6 +50,18 @@ class Database {
         }.bind(this));
     }
 
+    /*
+        Runs a given SQL DML with given parameters. 
+
+        Internally, it calls get_prepared_statement to improve performnace.
+
+        Arguments:
+            sql (String):                                   The SQL DML to execute
+            parameters (Variable length array of any type): Paramters to pass into prepared statement
+
+        Returns:
+            A Promise that returns the statement if the DML was successfully executed, returns an error if it does not.
+    */
     run_statement(sql, ...parameters) {
         const promise = this.get_prepared_statement(sql)
             .then(function(statement) {
@@ -53,6 +80,18 @@ class Database {
         return promise;
     }
 
+    /*
+        Gets a single row given a SQL DML and given parameters. 
+
+        Internally, it calls get_prepared_statement to improve performnace.
+
+        Arguments:
+            sql (String):                                   The SQL DML to execute
+            parameters (Variable length array of any type): Paramters to pass into prepared statement
+
+        Returns:
+            A Promise that returns the statement and row if the DML was successfully executed, returns an error if it does not.
+    */
     get_statement(sql, ...parameters) {
         return this.get_prepared_statement(sql)
             .then(function(statement) {
@@ -69,6 +108,18 @@ class Database {
             });
     }
 
+    /*
+        Gets all rows given a SQL DML and given parameters. 
+
+        Internally, it calls get_prepared_statement to improve performnace.
+
+        Arguments:
+            sql (String):                                   The SQL DML to execute
+            parameters (Variable length array of any type): Paramters to pass into prepared statement
+
+        Returns:
+            A Promise that returns the statement and rows if the DML was successfully executed, returns an error if it does not.
+    */
     get_all_statement(sql, ...parameters) {
         return this.get_prepared_statement(sql)
             .then(function(statement) {

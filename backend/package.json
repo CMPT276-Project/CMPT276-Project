@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "migrate": "node migration.js",
-    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules ./node_modules/jest/bin/jest.js",
+    "clean": "rm -rf node_modules testing.sqlite3",
+    "purge-production-database": "rm db.sqlite3"
   },
   "author": "Kelvin Hu <kha115@sfu.ca>",
   "license": "MIT",
