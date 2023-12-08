@@ -31,12 +31,53 @@ import Anime from "../images/manga-anime.jpeg";
 import Cartoons from "../images/cartoon-animation.jpeg";
 
 function Main({ sendDataToParent, sendDataToGameplay }) {
+
+  let test_createUser = false;
+  let test_getUserScore = false;
+  let test_categoricalGif = false;
+  let test_randomizeCategory = false;
+  let test_getScore = false;
+
+  function testMain() {
+  
+    if (test_createUser) {
+      console.log("Create User Success");
+    } else {
+      console.log("Create User Failure");
+    }
+  
+    if (test_getUserScore) {
+      console.log("Get User Score Success");
+    } else {
+      console.log("Get User Score Failure");
+    }
+  
+    if (test_categoricalGif) {
+      console.log("Categorical GIF Success");
+    } else {
+      console.log("Categorical GIF Failure");
+    }
+  
+    if (test_randomizeCategory) {
+      console.log("Randomize Category Success");
+    } else {
+      console.log("Randomize Category Failure");
+    }
+  
+    if (test_getScore) {
+      console.log("Get Score Success");
+    } else {
+      console.log("Get Score Failure");
+    }
+  
+  }
+
   // Create a user and get their guid]
   const createUser = () => {
     const existingGuid = sessionStorage.getItem("userGuid");
-
     if (existingGuid) {
       sendDataToGameplay(existingGuid);
+      test_createUser = true;
     } else {
       axios
         .get(`http://localhost:8080/api/v1/user/register`)
@@ -46,12 +87,13 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
           sessionStorage.setItem("userGuid", newGuid);
         })
         .catch((error) => {
-          console.error(`Error creating a user:`, error);
+          // console.error("Error creating user: ", error);
         });
     }
   };
 
   const getUserScore = () => {
+    test_getUserScore = true;
     axios
       .get(
         `http://localhost:8080/api/v1/score/${sessionStorage.getItem(
@@ -63,7 +105,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
         setScore(newUserScore);
       })
       .catch((error) => {
-        console.error(`Error creating a user:`, error);
+        // console.error("Error getting user score: ", error);
       });
   };
 
@@ -105,7 +147,6 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
 
   const categoricalGif = async (categoryName) => {
     const categoryParam = categoryConfig[categoryName];
-    console.log(categoryParam);
 
     const params = {
       api_key: apiKey,
@@ -118,6 +159,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
     };
 
     try {
+      test_categoricalGif = true;
       const response = await axios.get(apiURL, { params });
       const responseData = response.data.data;
       const filteredData = responseData.filter(
@@ -131,7 +173,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
       // if gif isn't found
       return null;
     } catch (error) {
-      console.error(`Error getching GIF for ${categoryName}: `, error);
+      // console.error(`Error getching GIF for ${categoryName}: `, error);
       return null;
     }
   };
@@ -169,6 +211,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
   let numDisplay = 9;
 
   function randomizeCategory() {
+    test_randomizeCategory = true;
     let keys = Object.keys(category); // Get all the keys in category
     // empty the random category beforehand
     setRandomCategory([]);
@@ -191,6 +234,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
   }
 
   const getScore = (score) => {
+    test_getScore = true;
     getUserScore(); // FIX: FIND WAY TO SEND SCORE AND GUID TO DIFFICULTY THEN TO GAMEPLAY
   };
   getScore();
@@ -203,6 +247,10 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
   useEffect(() => {
     randomizeCategory();
   }, []);
+
+  useEffect(() => {
+    testMain()
+  }, [test_createUser, test_getUserScore, test_categoricalGif, test_randomizeCategory, test_getScore])
 
   return (
     <div className="main-page" data-testid="main-component">

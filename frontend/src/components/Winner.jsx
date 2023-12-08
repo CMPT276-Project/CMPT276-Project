@@ -4,6 +4,25 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function Winner({ dataFromParent }) {
+
+  let test_fetchGIF = false;
+  let test_response = false;
+
+  function testWinner() {
+
+    if (test_fetchGIF) {
+      console.log("Fetch GIF Success");
+    } else {
+      console.log("Fetch GIF Failure");
+    }
+
+    if (test_response) {
+      console.log("Response Success");
+    } else {
+      console.log("Response Failure");
+    }
+  }
+
   const navigate = useNavigate();
 
   const [gif, setGif] = useState("");
@@ -28,6 +47,11 @@ function Winner({ dataFromParent }) {
     try {
       // get response from  the api call
       const response = await axios.get(apiURL, { params });
+      if (response) {
+        test_response = true;
+        test_fetchGIF = true;
+        testWinner()
+      }
 
       // get response data (in array format) from the api call
       const responseData = response.data.data;

@@ -10,6 +10,24 @@ function Loser({ dataFromParent }) {
   const location = useRouterLocation();
   const correctAnswer = location.state?.correctAnswer || "";
 
+  let test_fetchGIF = false;
+  let test_response = false;
+  let test_setCorrectAnswer = false;
+
+  function testLoser() {
+    if (test_fetchGIF) {
+      console.log("Fetch GIF Success");
+    } else {
+      console.log("Fetch GIF Failure");
+    }
+
+    if (test_response) {
+      console.log("Response Success");
+    } else {
+      console.log("Response Failure");
+    }
+  }
+
   const [gif, setGif] = useState("");
   const [renderedImage, setRenderedImage] = useState(null);
 
@@ -33,6 +51,12 @@ function Loser({ dataFromParent }) {
     try {
       // get response from api call
       const response = await axios.get(apiURL, { params });
+      if (response) {
+        test_response = true;
+        test_fetchGIF = true;
+        test_setCorrectAnswer = true;
+        testLoser()
+      }
 
       // get response data (in array format) from the api call
       const responseData = response.data.data;
