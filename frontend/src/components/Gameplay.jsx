@@ -116,7 +116,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
           sendDataToParent(score);
 
           axios
-            .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, {
+            .patch(`https://https://quizquest-backend.onrender.com/api/v1/score/${guidFromParent}`, {
               score: score,
             })
             .then((response) => {
@@ -137,7 +137,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
 
         //POST => UPDATES SCORE
         axios
-          .patch(`http://localhost:8080/api/v1/score/${guidFromParent}`, {
+          .patch(`https://quizquest-backend.onrender.com/api/v1/score/${guidFromParent}`, {
             score: score,
           })
           .then((response) => {

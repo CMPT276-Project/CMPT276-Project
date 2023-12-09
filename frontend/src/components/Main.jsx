@@ -80,7 +80,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
       test_createUser = true;
     } else {
       axios
-        .get(`http://localhost:8080/api/v1/user/register`)
+        .get(`https://quizquest-backend.onrender.com/api/v1/user/register`)
         .then((response) => {
           const newGuid = response.data.id;
           sendDataToGameplay(newGuid);
@@ -96,7 +96,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
     test_getUserScore = true;
     axios
       .get(
-        `http://localhost:8080/api/v1/score/${sessionStorage.getItem(
+        `https://quizquest-backend.onrender.com/api/v1/score/${sessionStorage.getItem(
           "userGuid"
         )}`
       )
