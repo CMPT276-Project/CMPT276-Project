@@ -5,103 +5,6 @@ import BackIcon from "./icons/BackIcon";
 import "../styles/Gameplay.css";
 
 function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
-
-  let test_randomCategoryKey = false;
-  let test_categoricalGif = false;
-  let test_shuffleArray = false;
-  let test_timer = false;
-
-  let test_setScore = false;
-  let test_setCurrentQuestionIndex = false;
-  let test_setSelectedAnswer = false;
-  let test_setSeconds = false;
-  let test_setNumQuestions = false;
-  let test_setCorrectAnswer = false;
-  let test_setAnswerOptions = false;
-  let test_setQuestions = false;
-  let test_setType = false;
-
-  function testGameplay () {
-      
-      if (test_randomCategoryKey) {
-        console.log("randomCategoryKey Success");
-      } else {
-        console.log("randomCategoryKey Failure");
-      }
-  
-      if (test_categoricalGif) {
-        console.log("categoricalGif Success");
-      } else {
-        console.log("categoricalGif Failure");
-      }
-  
-      if (test_shuffleArray) {
-        console.log("shuffleArray Success");
-      } else {
-        console.log("shuffleArray Failure");
-      }
-  
-      if (test_setScore) {
-        console.log("setScore Success");
-      } else {
-        console.log("setScore Failure");
-      }
-  
-      if (test_setCurrentQuestionIndex) {
-        console.log("setCurrentQuestionIndex Success");
-      } else {
-        console.log("setCurrentQuestionIndex Failure");
-      }
-  
-      if (test_setSelectedAnswer) {
-        console.log("setSelectedAnswer Success");
-      } else {
-        console.log("setSelectedAnswer Failure");
-      }
-  
-      if (test_setSeconds) {
-        console.log("setSeconds Success");
-      } else {
-        console.log("setSeconds Failure");
-      }
-  
-      if (test_setNumQuestions) {
-        console.log("setNumQuestions Success");
-      } else {
-        console.log("setNumQuestions Failure");
-      }
-  
-      if (test_setCorrectAnswer) {
-        console.log("setCorrectAnswer Success");
-      } else {
-        console.log("setCorrectAnswer Failure");
-      }
-  
-      if (test_setAnswerOptions) {
-        console.log("setAnswerOptions Success");
-      } else {
-        console.log("setAnswerOptions Failure");
-      }
-  
-      if (test_setQuestions) {
-        console.log("setQuestions Success");
-      } else {
-        console.log("setQuestions Failure");
-      }
-  
-      if (test_setType) {
-        console.log("setType Success");
-      } else {
-        console.log("setType Failure");
-      }
-  
-      if (test_timer) {
-        console.log("timer Success");
-      } else {
-        console.log("timer Failure");
-      }
-  }
-
   const navigate = useNavigate();
   const [numQuestions, setNumQuestions] = useState(0);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -134,14 +37,12 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
   };
 
   const getRandomCategoryKey = () => {
-    test_randomCategoryKey = true;
     const keys = Object.keys(categoryConfig);
     const randomIndex = Math.floor(Math.random() * keys.length);
     return keys[randomIndex];
   };
 
   const categoricalGif = async (categoryName) => {
-    test_categoricalGif = true;
     const categoryParam = categoryConfig[getRandomCategoryKey()];
 
     const params = {
@@ -174,10 +75,13 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
   }
 
   const shuffleArray = (array) => {
-    test_shuffleArray = true;
     const shuffledArray = array.sort(() => Math.random() - 0.5);
     return shuffledArray;
   };
+
+  useEffect(() => {
+    console.log("guidFromParent: ", guidFromParent);
+  }, [guidFromParent]);
 
   // Check if the user got answer right
   useEffect(() => {
@@ -250,9 +154,9 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         });
       }
     } else {
-      console.log("selected answer is null")
+      console.log("selected answer is null");
     }
-  }, [selectedAnswer, numQuestions])
+  }, [selectedAnswer, numQuestions]);
 
   // this is where everything shown on screen is intialized
   // eg. questions, answer options, timer and score
@@ -261,7 +165,6 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
     let updateAnswers = [];
     let updateQuestions = [];
     let updateCorrectAnswer = [];
-    let dataFromParent = [];
 
     // organize the questions into one array
     // organize the correct answer and incorrect answer into one pool of answers
@@ -276,7 +179,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         .replace(/(&quot\;)/g, '"')
         .replace(/(&rsquo\;)/g, '"')
         .replace(/(&#039\;)/g, "'")
-        .replace(/(&amp\;)/g, '"')
+        .replace(/(&amp\;)/g, '"');
 
       // push the question
       updateQuestions.push(dataFromParent[i].question);
@@ -359,46 +262,6 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
       setRenderedContent(answerBuffer);
     }
   }, [newAnswerOptions]);
-
-  useEffect(() => {
-    test_setScore = true;
-  }, [score])
-
-  useEffect(() => {
-    test_setCurrentQuestionIndex = true;
-  }, [currentQuestionIndex])
-
-  useEffect(() => {
-    test_setSelectedAnswer = true;
-  }, [selectedAnswer])
-
-  useEffect(() => {
-    test_setSeconds = true;
-  }, [seconds])
-
-  useEffect(() => {
-    test_setNumQuestions = true;
-  }, [numQuestions])
-
-  useEffect(() => {
-    test_setCorrectAnswer = true;
-  }, [correctAnswer])
-
-  useEffect(() => {
-    test_setAnswerOptions = true;
-  }, [answerOptions])
-
-  useEffect(() => {
-    test_setQuestions = true;
-  }, [questions])
-
-  useEffect(() => {
-    test_setType = true;
-  }, [type])
-
-  useEffect(() => {
-    testGameplay()
-  }, [test_randomCategoryKey, test_categoricalGif, test_shuffleArray, test_setScore, test_setCurrentQuestionIndex, test_setSelectedAnswer, test_setSeconds, test_setNumQuestions, test_setCorrectAnswer, test_setAnswerOptions, test_setQuestions, test_setType, test_timer])
 
   return (
     <div className="gameplay-page" data-testid="gameplay-component">
