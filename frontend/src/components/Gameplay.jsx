@@ -155,7 +155,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
       }
     } else {
       console.log("selected answer is null");
-    }
+    } // eslint-disable-next-line
   }, [selectedAnswer, numQuestions]);
 
   // this is where everything shown on screen is intialized
@@ -176,10 +176,10 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
 
       // remove any characters from the question from the api call
       dataFromParent[i].question = dataFromParent[i].question
-        .replace(/(&quot\;)/g, '"')
-        .replace(/(&rsquo\;)/g, '"')
-        .replace(/(&#039\;)/g, "'")
-        .replace(/(&amp\;)/g, '"');
+        .replace(/(&quot;)/g, '"')
+        .replace(/(&rsquo;)/g, '"')
+        .replace(/(&#039;)/g, "'")
+        .replace(/(&amp;)/g, '"');
 
       // push the question
       updateQuestions.push(dataFromParent[i].question);
@@ -222,7 +222,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
         clearInterval(timer);
       }
       return () => clearInterval(timer);
-    }
+    } // eslint-disable-next-line
   }, [answerOptions, currentQuestionIndex]);
 
   useEffect(() => {
@@ -236,7 +236,7 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
       navigate("/loser", {
         state: { correctAnswer: correctAnswer[currentQuestionIndex] },
       });
-    }
+    } // eslint-disable-next-line
   }, [seconds]);
 
   useEffect(() => {
@@ -244,10 +244,10 @@ function Gameplay({ dataFromParent, sendDataToParent, guidFromParent }) {
     if (newAnswerOptions) {
       newAnswerOptions.forEach((item, index) => {
         item = item
-          .replace(/(&quot\;)/g, '"')
-          .replace(/(&rsquo\;)/g, "'")
-          .replace(/(&#039\;)/g, "'")
-          .replace(/(&amp\;)/g, "&");
+          .replace(/(&quot;)/g, '"')
+          .replace(/(&rsquo;)/g, "'")
+          .replace(/(&#039;)/g, "'")
+          .replace(/(&amp;)/g, "&");
         answerBuffer.push(
           <div
             className="option"

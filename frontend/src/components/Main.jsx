@@ -110,7 +110,7 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
   };
 
   useEffect(() => {
-    createUser();
+    createUser(); // eslint-disable-next-line
   }, []);
 
   const apiKey = "1NscCn7Jf3oBH8kb4Ew4BicIpRbY6KD0";
@@ -245,11 +245,11 @@ function Main({ sendDataToParent, sendDataToGameplay }) {
 
   // randomize the categories initially
   useEffect(() => {
-    randomizeCategory();
+    randomizeCategory(); // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    testMain()
+    testMain() // eslint-disable-next-line
   }, [test_createUser, test_getUserScore, test_categoricalGif, test_randomizeCategory, test_getScore])
 
   return (

@@ -70,7 +70,7 @@ function Winner({ dataFromParent }) {
 
   // fetch the gif when the score is received from Gameplay.jsx
   useEffect(() => {
-    fetchGIF();
+    fetchGIF(); // eslint-disable-next-line
   }, [dataFromParent]);
 
   // render the image when the gif is set

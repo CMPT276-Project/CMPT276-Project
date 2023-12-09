@@ -151,7 +151,7 @@ function Difficulty({ dataFromParent, sendDataToParent }) {
   }
 
   useEffect(() => {
-    testDifficulty();
+    testDifficulty(); // eslint-disable-next-line
   }, [test_dataDoorOne, test_dataDoorTwo, test_dataDoorThree, test_response])
 
   return (

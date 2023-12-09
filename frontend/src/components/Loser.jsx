@@ -11,7 +11,7 @@ function Loser({ dataFromParent }) {
   const correctAnswer = location.state?.correctAnswer || "";
 
   let test_fetchGIF = false;
-  let test_response = false;
+  let test_response = false; // eslint-disable-next-line
   let test_setCorrectAnswer = false;
 
   function testLoser() {
@@ -75,7 +75,7 @@ function Loser({ dataFromParent }) {
 
   // when the score is received from Gameplay.jsx, fetch the gif
   useEffect(() => {
-    fetchGIF();
+    fetchGIF(); // eslint-disable-next-line
   }, [dataFromParent]);
 
   // when the gif is set, render the gif
