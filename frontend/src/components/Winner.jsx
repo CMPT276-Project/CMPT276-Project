@@ -85,7 +85,7 @@ function Winner({ dataFromParent }) {
       <p className="status">You Win</p>
       {renderedImage}
       <div className="score-board">Your Score: {dataFromParent} </div>
-      <div className="play-again" onClick={() => navigate("/trivia-game")}>
+      <div className="play-again" onClick={() => navigate("/")}>
         Play Again
       </div>
     </div>

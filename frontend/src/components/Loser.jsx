@@ -95,7 +95,7 @@ function Loser({ dataFromParent }) {
       {renderedImage}
       <div className="score-board">Your Score: {dataFromParent} </div>
       <div className="correct-answer">Correct Answer: {correctAnswer}</div>
-      <div className="play-again" onClick={() => navigate("/trivia-game")}>
+      <div className="play-again" onClick={() => navigate("/")}>
         Play Again
       </div>
     </div>
