@@ -9,7 +9,7 @@ import { Database } from "./app/database.js";
 import { create_user, update_user_name, get_user } from "./app/users.js";
 import { get_score_for_user, get_all_scores, update_user_score_by_amount } from "./app/scores.js";
 
-const hostname = "127.0.0.1";
+const hostname = "0.0.0.0";
 const port = process.env.PORT || 8080;
 const db_path = process.env.DB_PATH || "./db.sqlite3";
 
