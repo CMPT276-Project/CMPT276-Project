@@ -49,7 +49,7 @@ function App() {
     <Router>
       <Routes>
         <Route
-          path="/trivia-game"
+          path="/"
           element={
             <Main
               sendDataToGameplay={handleGUID}
